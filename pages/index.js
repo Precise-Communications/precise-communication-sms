@@ -4,6 +4,7 @@ import enTranslations from '@shopify/polaris/locales/en.json';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import "./styles.css"
 import axios from 'axios'
+import form_data from 'form-data'
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 const URL="https://restapi.tobeprecisesms.com/api/Credits/GetBalance/"
 
@@ -47,8 +48,7 @@ class Index extends React.Component {
                          * call Repl API for User Insertion With ALL THE ENTRIES
                          * then call Repl API for Table Creation
                          */
-
-                      
+                        this.CreateUser()                    
                         }
                         else{
                           this.state.Credentials="False";
@@ -57,9 +57,38 @@ class Index extends React.Component {
                         })
                       }
   }
-  // inError=()=>{
-  //   return <InlineError message="Store name is required" fieldID="myFieldID" />
-  // }
+  // Creating User Table Entry
+  CreateUser(){
+    const DUMMY_URL=window.location.ancestorOrigins.item(0);
+    var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
+    console.log(JSON.stringify(SHOP_URL))
+    const USERNAME=this.state.username;
+    const PASSWORD=this.state.password;
+    const SHOP_NAME="DUMMY";
+    const STATUS=true;
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(URL, requestOptions)
+      .then(response => response.text())
+      .then(result => this.CreateTable())
+      .catch(error => console.log('error', error));
+  }
+  // Creating Table If user Authenticated
+  CreateTable(){
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+this.state.username;
+    fetch(URL, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
     render() { 
     return (
       <AppProvider i18n={enTranslations}>
