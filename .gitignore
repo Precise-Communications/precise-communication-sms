@@ -1,0 +1,4 @@
+node_modules
+.next
+IMAGE
+package-lock.json
