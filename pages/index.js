@@ -9,61 +9,34 @@ const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 const URL="https://restapi.tobeprecisesms.com/api/Credits/GetBalance/"
 
 var credits
-class Index extends React.Component {
- constructor(props) {
-   super(props)
-
-   this.state = {
-      username:"",
-      password:"",
-      credits:"0",
-      Credentials:"False",
-      error:true
-   }
- }
-  OnchangeHandler=e=>{
+function Index(){
+ 
+//  constructor(props) {
+//    super(props)
+//    this.state = {
+//       username:"",
+//       password:"",
+//       credits:"0",
+//       Credentials:"False",
+//       error:true
+//    }
+//  }
+  function OnchangeHandler(){
         this.state.value
     }
-  onSubmitHandler=e=>{
-    e.preventDefault()
-    if((this.state.username==="" && this.state.password==="")||(this.state.username==="")||(this.state.password==="")){
-      // Show Error
-      alert("Hello")
-    }
-    else{
-   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/credits/"+this.state.username+"/"+this.state.password)
-            .then(response=>response.json())
-            .then(json=>{
-                        if(json.status==="OK"){
-                        this.setState({credits:json.data.balance});
-                        this.state.Credentials="True";
-                        console.log(window.location.ancestorOrigins.item(0)); // To get Current Url Of SHOP
-                        /**
-                         * to send 
-                         * this.state.username
-                         * this.state.password
-                         * window.location.ancestorOrigins.item(0)
-                         * status:True|False|Deactive 
-                         * send this data to Users Table And create a separate table for messages with Table Name="username"
-                         * call Repl API for User Insertion With ALL THE ENTRIES
-                         * then call Repl API for Table Creation
-                         */
-                        this.CreateUser()                    
-                        }
-                        else{
-                          this.state.Credentials="False";
-                           this.state.error="true"
-                        }
-                        })
-                      }
-  }
+  const [username,setUsername]=useState("")
+  const [password,setPassword]=useState("")
+  const [credits,setCredits]=useState("")
+  const [error,setError]=useState(false)
+  const [credentials,setCredentials]=useState("")
+
   // Creating User Table Entry
-  CreateUser(){
+  function CreateUser(){
     const DUMMY_URL=window.location.ancestorOrigins.item(0);
     var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
     console.log(JSON.stringify(SHOP_URL))
-    const USERNAME=this.state.username;
-    const PASSWORD=this.state.password;
+    const USERNAME=username;
+    const PASSWORD=password;
     const SHOP_NAME="DUMMY";
     const STATUS=true;
     const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
@@ -74,64 +47,97 @@ class Index extends React.Component {
 
     fetch(URL, requestOptions)
       .then(response => response.text())
-      .then(result => this.CreateTable())
+      .then(result => CreateTable())
       .catch(error => console.log('error', error));
   }
   // Creating Table If user Authenticated
-  CreateTable(){
+  function CreateTable(){
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+this.state.username;
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+username;
     fetch(URL, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
-    render() { 
+  function onSubmitHandler(e){
+    e.preventDefault()
+    if((username==="" && password==="")||(username==="")||(password==="")){
+      // Show Error
+      alert("Hello")
+    }
+    else{
+   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/credits/"+username+"/"+password)
+            .then(response=>response.json())
+            .then(json=>{
+                        if(json.status==="OK"){
+                        setCredits(json.data.balance)
+                        setCredentials("True");
+                        setError(false)
+                        // console.log(window.location.ancestorOrigins.item(0)); // To get Current Url Of SHOP
+
+                        /**
+                         * to send 
+                         * this.state.username
+                         * this.state.password
+                         * window.location.ancestorOrigins.item(0)
+                         * status:True|False|Deactive 
+                         * send this data to Users Table And create a separate table for messages with Table Name="username"
+                         * call Repl API for User Insertion With ALL THE ENTRIES
+                         * then call Repl API for Table Creation
+                         */
+                        CreateUser()               
+                        }
+                        else{
+                          setCredentials("False");
+                          setCredits("")
+                          setError(true)
+                        }
+                        })
+                      }
+  }
+      // const [error,setError]=useState("false")
     return (
       <AppProvider i18n={enTranslations}>
     <div>
      <Card title="Available Credits" sectioned>
-  <h3>{this.state.credits}</h3>
+  <h3>{credits}</h3>
     </Card>
     <br/>
-    <form onSubmit={this.onSubmitHandler}>
+    <form onSubmit={onSubmitHandler}>
     <section className="form-class">
       
     <TextField 
       name="username"
       label="User Name"
-      value={this.state.username}
+      value={username}
       placeholder="Enter Username"
       disabled={false}
-      onChange={(newValue) => this.setState({username: newValue})}
+      onChange={(newValue) => setUsername(newValue)}
       id="username"
     />
     <br/>
      <TextField
-     onChange={this.ChangeHandler}
       name="password"
       label="password"
-      value={this.state.password}
+      value={password}
       placeholder="Enter Password"
       id="password"
-      onChange={(newValue) => this.setState({password: newValue})}
+      onChange={(newValue) => setPassword(newValue)}
     /> 
     <br/>
 <br/>
-{ this.state.error &&
-  <InlineError message="Store name is required" fieldID="myFieldID" /> }
-  
-    <Button primary type="submit" onClick={this.onSubmitHandler}>Log In</Button>
+{error &&
+  <InlineError message="Incorrect username/password" fieldID="myFieldID" /> }
+  <br/>
+    <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button>
     {/* <button type="submit">Submit</button> */}
     </section>
     </form>
     </div>
     </AppProvider>
   );
-      }    
-    }
-  
+      }      
   export default Index;
