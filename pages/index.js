@@ -29,6 +29,7 @@ function Index(){
   const [credits,setCredits]=useState("")
   const [error,setError]=useState(false)
   const [credentials,setCredentials]=useState("")
+  const [message,setMessage]=useState("Incorrect username/password")
 
   // Creating User Table Entry
   function CreateUser(){
@@ -66,7 +67,8 @@ function Index(){
     e.preventDefault()
     if((username==="" && password==="")||(username==="")||(password==="")){
       // Show Error
-      alert("Hello")
+     setError(true)
+     setMessage("Please enter credentials")
     }
     else{
    fetch("https://precise-comm-sms.ishanjirety.repl.co/api/credits/"+username+"/"+password)
@@ -94,6 +96,7 @@ function Index(){
                           setCredentials("False");
                           setCredits("")
                           setError(true)
+                          setMessage("Incorrect username/password")
                         }
                         })
                       }
@@ -130,7 +133,7 @@ function Index(){
     <br/>
 <br/>
 {error &&
-  <InlineError message="Incorrect username/password" fieldID="myFieldID" /> }
+  <InlineError message={message} fieldID="myFieldID" /> }
   <br/>
     <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button>
     {/* <button type="submit">Submit</button> */}
