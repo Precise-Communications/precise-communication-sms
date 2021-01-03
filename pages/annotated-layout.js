@@ -84,7 +84,7 @@ function getName(){
     .then(response => response.text())
     .then(result =>{
      console.log(result.response.username)
-     setStore(result.response.username)
+     setStore(JSON.stringify(result).response.username)
     })
     .catch(error => console.log('error', error));
 }
