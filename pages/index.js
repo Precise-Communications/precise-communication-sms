@@ -9,6 +9,7 @@ const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
 const URL="https://restapi.tobeprecisesms.com/api/Credits/GetBalance/"
 
 var credits
+
 function Index(){
  
 //  constructor(props) {
@@ -21,6 +22,7 @@ function Index(){
 //       error:true
 //    }
 //  }
+
   function OnchangeHandler(){
         this.state.value
     }
@@ -30,6 +32,7 @@ function Index(){
   const [error,setError]=useState(false)
   const [credentials,setCredentials]=useState("")
   const [message,setMessage]=useState("Incorrect username/password")
+  const [btn,setBtn]=useState(true)
 
   // Creating User Table Entry
   function CreateUser(){
@@ -91,6 +94,7 @@ function Index(){
                          * then call Repl API for Table Creation
                          */
                         CreateUser()               
+                        setBtn(true)
                         }
                         else{
                           setCredentials("False");
@@ -101,6 +105,39 @@ function Index(){
                         })
                       }
   }
+/**
+ * Check If User Is loggedIn
+ */
+
+
+function CheckUserStatus(){
+  var DUMMY_URL
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  if(document.location.ancestorOrigins.item(0)==="null"){
+   DUMMY_URL= document.location.host;
+  }
+  else{
+     DUMMY_URL= document.location.ancestorOrigins.item(0);
+  }
+  
+  var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
+  fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
+    .then(response => response.json())
+    .then(result =>{
+        console.log(result.response)
+        if (result.response==="null"){
+          setBtn(true)
+        }
+        else{
+          setBtn(false)
+        }
+    }).catch(error => console.log('error', error));
+    return <div></div>
+}
+
       // const [error,setError]=useState("false")
     return (
       <AppProvider i18n={enTranslations}>
@@ -135,12 +172,15 @@ function Index(){
 {error &&
   <InlineError message={message} fieldID="myFieldID" /> }
   <br/>
-    <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button>
+  {!btn && <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button> }
+   {btn && <Button destructive type="submit" onClick={onSubmitHandler}>Log Out</Button>} 
     {/* <button type="submit">Submit</button> */}
     </section>
     </form>
     </div>
+    <CheckUserStatus/>
     </AppProvider>
+    
   );
-      }      
+}      
   export default Index;

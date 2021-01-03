@@ -1,5 +1,7 @@
 import React,{useState} from "react"
 import "./styles.css"
+import axios from 'axios'
+import form_data from 'form-data'
 import {
     Button,
     Card,
@@ -12,22 +14,30 @@ import {
     TextField,
     TextStyle,
     Checkbox,
-    AppProvider
+    AppProvider,
+    InlineError
   } from '@shopify/polaris';
   import enTranslations from '@shopify/polaris/locales/en.json';
 
 
   function AnnotatedLayout()  {
+
+  /**
+   * error Declarations
+   */
+    const[errorStatus,setErrorStatus]=useState(false)
+    const[error,setError]=useState()
+
   /**
    * For Text Changes
    */
-  const [signup,setSignup]=useState("")
-  const [placed,setPlaced]=useState("")
-  const [fulfilled,setFulfilled]=useState("")
-  const [canceled,setCanceled]=useState("")
-  const [abandoned,setAbandoned]=useState("")
-  const [refund,setRefund]=useState("")
-  const [SMS,setSMS]=useState("")
+  const [signup,setSignup]=useState("NULL")
+  const [placed,setPlaced]=useState("NULL")
+  const [fulfilled,setFulfilled]=useState("NULL")
+  const [canceled,setCanceled]=useState("NULL")
+  const [abandoned,setAbandoned]=useState("NULL")
+  const [refund,setRefund]=useState("NULL")
+  const [SMS,setSMS]=useState("NULL")
   /**
    * for checkbox Changes
    */
@@ -58,18 +68,24 @@ import {
 
   //  This Function Will Post Data In Particular Collection
   function onsubmitHandler(){
-    getName()
-    var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
+    if(errorStatus===false){
+    const STORE=store.replace(/(^\w+:|^)\/\//, '')
+    console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
+    var config = {
+      method: 'get',
+      url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+      headers: {}
     };
-  const STORE=store.replace(/(^\w+:|^)\/\//, '')
-  const URL="https://Precise-Comm-SMS.ishanjirety.repl.co/api/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk
-
-  fetch(URL, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    }
+    // 
 }
 
 // Function Will Get Name Of Store In Which It Has to be stored
@@ -81,17 +97,31 @@ function getName(){
   const DUMMY_URL=window.location.ancestorOrigins.item(0);
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
-    .then(response => response.text())
+    .then(response => response.json())
     .then(result =>{
-     console.log(result.response.username)
-     setStore(JSON.stringify(result).response.username)
-    })
-    .catch(error => console.log('error', error));
+      if(result.status==="500"){
+        console.log(result.response)
+        setStore("")
+        setErrorStatus(true)
+        setError("You might not have logged in. Please log in to store messages")
+      }
+      else
+      {
+        setErrorStatus(false)
+        console.log(result)
+        setStore(result.response.username)
+        console.log(result.response)
+        onsubmitHandler()        
+      }
+     
+    }).catch(error => console.log('error', error));
+    
 }
     
       return (
         <AppProvider i18n={enTranslations}>
         <Page className="PageClass">
+        {errorStatus && <InlineError message={error} fieldID="myFieldID" /> }
           <Checkbox label="New Customer Signup"     checked={signupChk}  onChange={()=>setSignupChk(!signupChk)}/><TextField onChange={(newValue) => setSignup(newValue)} placeholder="Enter Message" value={signup}           /> <br/>
           <Checkbox label="When Order Is Placed"    checked={placedChk}  onChange={()=>setPlacedChk(!placedChk)} /> <TextField onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed}       /><br/> 
           <Checkbox label="When Order Is Fulfilled" checked={fulfilledChk}  onChange={()=>setFulfilledChk(!fulfilledChk)}/><TextField  onChange={(newValue) => setFulfilled(newValue)} placeholder="Enter Message" value={fulfilled}   /><br/> 
@@ -100,7 +130,7 @@ function getName(){
           <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/><TextField  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund}      /><br/> 
           <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/><TextField  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS}                  />
           <br/>
-          <div className="button"><Button primary type="submit" onClick={onsubmitHandler}>Save</Button></div>
+          <div className="button"><Button primary type="submit" onClick={getName}>Save</Button></div>
           <Button destructive onClick={onClickHandler} >Cancel</Button>
         </Page>
         </AppProvider>
