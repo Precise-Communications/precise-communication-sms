@@ -83,7 +83,8 @@ function getName(){
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.text())
     .then(result =>{
-     console.log(result)
+     console.log(result.response.username)
+     setStore(result.response.username)
     })
     .catch(error => console.log('error', error));
 }
