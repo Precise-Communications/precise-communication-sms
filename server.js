@@ -190,9 +190,27 @@ app.prepare().then(() => {
   
   //  ---> Order Placement 
   // Order Placed
+  /**
+   * 
+   * account_creation:"hello guys"
+     account_status:"true"
+     order_creation:"NULL"
+     order_status:"true"
+     order_refund:"NULL"
+     refund_status:"true"
+     order_cancel:"NULL"
+     cancel_status:"true"
+     abandoned_cart:"NULL"
+     abandoned_status:"true"
+     marketing_sms:"NULL"
+     marketing_status:"true"
+     order_fulfillment:"NULL"
+     fulfillment_status:"true"
+   */
   router.post('/webhooks/orders/create', webhook, (ctx) => {
     console.log("------------------Create Order----------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"order_creation","order_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("------------------Create Order----------------------")
   });
@@ -203,6 +221,7 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/cancelled', webhook, (ctx) => {
     console.log("-------------------Order Cancelled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------Order Cancelled---------------------")
   });
@@ -214,6 +233,8 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/fulfilled', webhook, (ctx) => {
     console.log("-------------------Order Fulfilled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"order_fulfillment","fulfillment_status",ctx.state.webhook.topic)
+   
     // Do Something ...
     console.log("-------------------Order Fulfilled---------------------")
   });
@@ -224,6 +245,7 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/delete', webhook, (ctx) => {
     console.log("-------------------Order Delete---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    // GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------Order Delete---------------------")
   });
@@ -234,6 +256,7 @@ app.prepare().then(() => {
    router.post('/webhooks/refunds/create', webhook, (ctx) => {
     console.log("-------------------Refunds Create---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------Refunds Create---------------------")
   });
@@ -244,6 +267,7 @@ app.prepare().then(() => {
   router.post('/webhooks/carts/update', webhook, (ctx) => {
     console.log("-------------------Carts Update---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"abandoned_cart","abandoned_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------Carts Update---------------------")
   });
@@ -254,6 +278,7 @@ app.prepare().then(() => {
   router.post('/webhooks/customers/create', webhook, (ctx) => {
     console.log("-------------------Customer Create---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"account_creation","account_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------Customer Create---------------------")
   });
@@ -265,6 +290,7 @@ app.prepare().then(() => {
    router.post('/webhooks/app/uninstalled', webhook, (ctx) => {
     console.log("-------------------App Uninstalled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
+    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
     // Do Something ...
     console.log("-------------------App Uninstalled---------------------")
   });
@@ -287,3 +313,18 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
+
+
+// For Recieving Messages
+function GetMessage(url,hookCalled,hookStatus,topic){
+  const URL="https://precise-comm-sms.ishanjirety.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch(URL, requestOptions)
+    .then(response => response.json())
+    .then(result => console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\n Message-> "+result.message))
+    .catch(error => console.log('error', error));
+}
