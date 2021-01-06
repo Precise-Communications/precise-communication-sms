@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import {AppProvider,TextField,Button,InlineError,Banner,Card,FormLayout,Heading,Badge,Stack,EmptyState, Layout, Page} from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
@@ -33,7 +33,7 @@ function Index(){
   const [credentials,setCredentials]=useState("")
   const [message,setMessage]=useState("Incorrect username/password")
   const [btn,setBtn]=useState(true)
-
+  const [senderName,setSenderName]=useState("")
   // Creating User Table Entry
   function CreateUser(){
     const DUMMY_URL=window.location.ancestorOrigins.item(0);
@@ -110,7 +110,7 @@ function Index(){
  */
 
 
-function CheckUserStatus(){
+useEffect(async function CheckUserStatus(){
   var DUMMY_URL
   var requestOptions = {
     method: 'GET',
@@ -122,21 +122,22 @@ function CheckUserStatus(){
   else{
      DUMMY_URL= document.location.ancestorOrigins.item(0);
   }
-  
+  //
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
+  console.log(SHOP_URL)
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
-        console.log(result.response)
+        console.log("Hello World "+result.response)
         if (result.response==="null"){
-          setBtn(true)
+          setBtn(false)
         }
         else{
-          setBtn(false)
+          setBtn(true)
         }
     }).catch(error => console.log('error', error));
     return <div></div>
-}
+},[])
 
       // const [error,setError]=useState("false")
     return (
@@ -148,14 +149,24 @@ function CheckUserStatus(){
     <br/>
     <form onSubmit={onSubmitHandler}>
     <section className="form-class">
-      
+    <div className="SenderID">
+    <TextField 
+      name="sendername"
+      label="Sender ID"
+      value={senderName}
+      placeholder="Enter Sender Name"
+      disabled={false}
+      onChange={(newValue) => setSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+      id="username"
+    /></div>
+    <br/>
     <TextField 
       name="username"
       label="User Name"
       value={username}
       placeholder="Enter Username"
       disabled={false}
-      onChange={(newValue) => setUsername(newValue)}
+      onChange={(newValue) => setUsername(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("<",'').replace(">",''))}
       id="username"
     />
     <br/>
@@ -164,8 +175,9 @@ function CheckUserStatus(){
       label="password"
       value={password}
       placeholder="Enter Password"
-      id="password"
-      onChange={(newValue) => setPassword(newValue)}
+      id="Password"
+      onChange={(newValue) => setPassword(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+      type="password"
     /> 
     <br/>
 <br/>

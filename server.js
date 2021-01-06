@@ -171,6 +171,18 @@ app.prepare().then(() => {
             console.log('Failed to register webhook For App Uninstalled!', registration.result);
           }
           /*__________________________________________________________________________________*/
+          registration = await registerWebhook({
+            address: `${HOST}/webhooks/checkouts/count`,
+            topic: 'CHECKOUTS_COUNT',
+            accessToken,
+            shop,
+            apiVersion: ApiVersion.July20
+          });
+          if (registration.success) {
+            console.log('Successfully registered webhook For Checkout Count', registration);
+          } else {
+            console.log('Failed to register webhook For Checkout Count', registration.result);
+          }
 
       }
       
@@ -325,6 +337,6 @@ function GetMessage(url,hookCalled,hookStatus,topic){
   
   fetch(URL, requestOptions)
     .then(response => response.json())
-    .then(result => console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\n Message-> "+result.message))
+    .then(result => console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\nMessage-> "+result.message))
     .catch(error => console.log('error', error));
 }
