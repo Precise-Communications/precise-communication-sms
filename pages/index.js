@@ -23,9 +23,6 @@ function Index(){
 //    }
 //  }
 
-  function OnchangeHandler(){
-        this.state.value
-    }
   const [username,setUsername]=useState("")
   const [password,setPassword]=useState("")
   const [credits,setCredits]=useState("")
@@ -35,6 +32,7 @@ function Index(){
   const [btn,setBtn]=useState(true)
   const [senderName,setSenderName]=useState("")
   // Creating User Table Entry
+
   function CreateUser(){
     const DUMMY_URL=window.location.ancestorOrigins.item(0);
     var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
@@ -42,8 +40,10 @@ function Index(){
     const USERNAME=username;
     const PASSWORD=password;
     const SHOP_NAME="DUMMY";
-    const STATUS=true;
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
+    const STATUS="logged_in";
+    const SENDER_NAME=senderName
+    console.log(SENDER_NAME)
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -51,7 +51,10 @@ function Index(){
 
     fetch(URL, requestOptions)
       .then(response => response.text())
-      .then(result => CreateTable())
+      .then(result => {
+        CreateTable()
+        setBtn(false)
+      })
       .catch(error => console.log('error', error));
   }
   // Creating Table If user Authenticated
@@ -81,6 +84,7 @@ function Index(){
                         setCredits(json.data.balance)
                         setCredentials("True");
                         setError(false)
+                        
                         // console.log(window.location.ancestorOrigins.item(0)); // To get Current Url Of SHOP
 
                         /**
@@ -105,12 +109,33 @@ function Index(){
                         })
                       }
   }
+  // Logging Out User
+  function LogOutHandler(){
+    const STATUS = "logged_out";
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/update/"+username+"/"+STATUS
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(URL, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setUsername("")
+        setPassword("")
+        setSenderName("")
+        console.log(result)
+        setBtn(true)
+      })
+      .catch(error => console.log('error', error));
+  }
 /**
  * Check If User Is loggedIn
  */
 
 
 useEffect(async function CheckUserStatus(){
+  setBtn(true)
   var DUMMY_URL
   var requestOptions = {
     method: 'GET',
@@ -128,12 +153,19 @@ useEffect(async function CheckUserStatus(){
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
-        console.log("Hello World "+result.response)
-        if (result.response==="null"){
-          setBtn(false)
+        console.log(result)
+        if (result.status==="500" || result.response.status==="logged_out"){
+          setUsername("")
+          setPassword("")
+          setSenderName("")
+          setCredits("")
+          setBtn(true)
         }
         else{
-          setBtn(true)
+          setSenderName(result.response.senderName)
+          setUsername(result.response.username)
+          setPassword(result.response.password)
+          setBtn(false)
         }
     }).catch(error => console.log('error', error));
     return <div></div>
@@ -157,6 +189,7 @@ useEffect(async function CheckUserStatus(){
       placeholder="Enter Sender Name"
       disabled={false}
       onChange={(newValue) => setSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+      disabled={!btn}
       id="username"
     /></div>
     <br/>
@@ -166,6 +199,7 @@ useEffect(async function CheckUserStatus(){
       value={username}
       placeholder="Enter Username"
       disabled={false}
+      disabled={!btn}
       onChange={(newValue) => setUsername(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("<",'').replace(">",''))}
       id="username"
     />
@@ -176,6 +210,7 @@ useEffect(async function CheckUserStatus(){
       value={password}
       placeholder="Enter Password"
       id="Password"
+      disabled={!btn}
       onChange={(newValue) => setPassword(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
       type="password"
     /> 
@@ -184,8 +219,8 @@ useEffect(async function CheckUserStatus(){
 {error &&
   <InlineError message={message} fieldID="myFieldID" /> }
   <br/>
-  {!btn && <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button> }
-   {btn && <Button destructive type="submit" onClick={onSubmitHandler}>Log Out</Button>} 
+  {btn && <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button> }
+   {!btn && <Button destructive type="submit" onClick={LogOutHandler}>Log Out</Button>} 
     {/* <button type="submit">Submit</button> */}
     </section>
     </form>

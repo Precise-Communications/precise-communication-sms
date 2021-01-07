@@ -171,18 +171,6 @@ app.prepare().then(() => {
             console.log('Failed to register webhook For App Uninstalled!', registration.result);
           }
           /*__________________________________________________________________________________*/
-          registration = await registerWebhook({
-            address: `${HOST}/webhooks/checkouts/count`,
-            topic: 'CHECKOUTS_COUNT',
-            accessToken,
-            shop,
-            apiVersion: ApiVersion.July20
-          });
-          if (registration.success) {
-            console.log('Successfully registered webhook For Checkout Count', registration);
-          } else {
-            console.log('Failed to register webhook For Checkout Count', registration.result);
-          }
 
       }
       
@@ -221,8 +209,9 @@ app.prepare().then(() => {
    */
   router.post('/webhooks/orders/create', webhook, (ctx) => {
     console.log("------------------Create Order----------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_creation","order_status",ctx.state.webhook.topic)
+    // console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
+    GetMessage(ctx.state.webhook.domain,"order_creation","order_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("------------------Create Order----------------------")
   });
@@ -233,7 +222,7 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/cancelled', webhook, (ctx) => {
     console.log("-------------------Order Cancelled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Order Cancelled---------------------")
   });
@@ -245,7 +234,7 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/fulfilled', webhook, (ctx) => {
     console.log("-------------------Order Fulfilled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_fulfillment","fulfillment_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"order_fulfillment","fulfillment_status",ctx.state.webhook.topic,ctx.state.webhook)
    
     // Do Something ...
     console.log("-------------------Order Fulfilled---------------------")
@@ -257,7 +246,7 @@ app.prepare().then(() => {
   router.post('/webhooks/orders/delete', webhook, (ctx) => {
     console.log("-------------------Order Delete---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    // GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
+    // GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Order Delete---------------------")
   });
@@ -268,7 +257,7 @@ app.prepare().then(() => {
    router.post('/webhooks/refunds/create', webhook, (ctx) => {
     console.log("-------------------Refunds Create---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Refunds Create---------------------")
   });
@@ -279,7 +268,7 @@ app.prepare().then(() => {
   router.post('/webhooks/carts/update', webhook, (ctx) => {
     console.log("-------------------Carts Update---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"abandoned_cart","abandoned_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"abandoned_cart","abandoned_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Carts Update---------------------")
   });
@@ -290,7 +279,7 @@ app.prepare().then(() => {
   router.post('/webhooks/customers/create', webhook, (ctx) => {
     console.log("-------------------Customer Create---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"account_creation","account_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"account_creation","account_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Customer Create---------------------")
   });
@@ -302,7 +291,7 @@ app.prepare().then(() => {
    router.post('/webhooks/app/uninstalled', webhook, (ctx) => {
     console.log("-------------------App Uninstalled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic)
+    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------App Uninstalled---------------------")
   });
@@ -328,7 +317,7 @@ app.prepare().then(() => {
 
 
 // For Recieving Messages
-function GetMessage(url,hookCalled,hookStatus,topic){
+function GetMessage(url,hookCalled,hookStatus,topic,webhook){
   const URL="https://precise-comm-sms.ishanjirety.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
   var requestOptions = {
     method: 'GET',
@@ -339,4 +328,51 @@ function GetMessage(url,hookCalled,hookStatus,topic){
     .then(response => response.json())
     .then(result => console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\nMessage-> "+result.message))
     .catch(error => console.log('error', error));
+}
+
+/**
+ * have to check if user is logged in or not 
+ * have to check if user has set messages in DB
+ * then replace all the place holders
+ */
+
+function replaceMessage_send(topic,message,webhook){
+
+  switch(topic){
+  case "ORDER_CREATED":
+    message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+  break;
+  
+  case "ORDERS_CANCELLED":
+  break;
+
+  case "ORDERS_FULFILLED":
+  break;
+
+  case "ORDERS_DELETE":
+  break;
+
+  case "REFUNDS_CREATE":
+  break;
+
+  case "CARTS_UPDATE":
+  break;
+
+  case "CUSTOMER_CREATE":
+  break;
+
+  case "APP_UNINSTALLED":
+  break;
+  
+  }
+  
+
+
+
+
+
 }

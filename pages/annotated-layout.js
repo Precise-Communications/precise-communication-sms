@@ -15,7 +15,8 @@ import {
     TextStyle,
     Checkbox,
     AppProvider,
-    InlineError
+    InlineError,
+    Link
   } from '@shopify/polaris';
   import enTranslations from '@shopify/polaris/locales/en.json';
 
@@ -98,7 +99,7 @@ function getName(){
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
-      if(result.status==="500"){
+      if(result.status==="500" || result.response.status==="logged_out"){
         console.log(result.response)
         setStore("")
         setErrorStatus(true)
@@ -116,18 +117,117 @@ function getName(){
     }).catch(error => console.log('error', error));
     
 }
-    
+// Var Appending
+function varSignup(e){
+  const VarValue=e.target.innerText
+  setSignup(signup+VarValue)
+}
+function varPlaced(e){
+  const VarValue=e.target.innerText
+  setPlaced(placed+VarValue)
+}
+function varFulfilled(e){
+  const VarValue=e.target.innerText
+  setFulfilled(fulfilled+VarValue)
+}
+function varCanceled(e){
+  const VarValue=e.target.innerText
+  setCanceled(canceled+VarValue)
+}
+function varAbandoned(e){
+  const VarValue=e.target.innerText
+  setAbandoned(abandoned+VarValue)
+}
+function varRefunded(e){
+  const VarValue=e.target.innerText
+  setRefund(refund+VarValue)
+}
+function varSMS(e){
+  const VarValue=e.target.innerText
+  setSMS(SMS+VarValue)
+}
       return (
         <AppProvider i18n={enTranslations}>
         <Page className="PageClass">
         {errorStatus && <InlineError message={error} fieldID="myFieldID" /> }
-          <Checkbox label="New Customer Signup"     checked={signupChk}  onChange={()=>setSignupChk(!signupChk)}/><TextField onChange={(newValue) => setSignup(newValue)} placeholder="Enter Message" value={signup}           /> <br/>
-          <Checkbox label="When Order Is Placed"    checked={placedChk}  onChange={()=>setPlacedChk(!placedChk)} /> <TextField onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed}       /><br/> 
-          <Checkbox label="When Order Is Fulfilled" checked={fulfilledChk}  onChange={()=>setFulfilledChk(!fulfilledChk)}/><TextField  onChange={(newValue) => setFulfilled(newValue)} placeholder="Enter Message" value={fulfilled}   /><br/> 
-          <Checkbox label="When Order Is Canceled"  checked={canceledChk}  onChange={()=>setCanceledChk(!canceledChk)}/> <TextField  onChange={(newValue) => setCanceled(newValue)}  placeholder="Enter Message" value={canceled}   /><br/>
-          <Checkbox label="SMS for abandoned carts" checked={abandonedChk}  onChange={()=>setAbandonedChk(!abandonedChk)}/>  <TextField  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned}/><br/>
-          <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/><TextField  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund}      /><br/> 
-          <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/><TextField  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS}                  />
+        {/* Signup Message Start */}
+          <Checkbox label="New Customer Signup"     checked={signupChk}  onChange={()=>setSignupChk(!signupChk)}/>
+          <br/>
+          <Link onClick={varSignup} >[[first_name]]</Link><span> | </span>
+          <Link onClick={varSignup} >[[last_name]]</Link><span> | </span>
+          <Link onClick={varSignup} >[[email]]</Link><span> | </span>
+          <Link onClick={varSignup} >[[shop_name]]</Link><span> | </span>
+          <Link onClick={varSignup} >[[shop_domain]]</Link>
+          <TextField onChange={(newValue) => setSignup(newValue)} placeholder="Enter Message" value={signup}           /> <br/>
+        {/* Signup Message End */}
+
+        {/* Placed Message Start */}
+          <Checkbox label="When Order Is Placed"    checked={placedChk}  onChange={()=>setPlacedChk(!placedChk)} /> 
+          <br/>
+          <Link onClick={varPlaced}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varPlaced}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varPlaced}>[[email]]</Link><span> | </span>
+          <Link onClick={varPlaced}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varPlaced}>[[shop_domain]]</Link>
+          <TextField onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed}       /><br/> 
+        {/* Placed Message Start */}
+
+        {/* Fulfilled Message Start */}
+          <Checkbox label="When Order Is Fulfilled" checked={fulfilledChk}  onChange={()=>setFulfilledChk(!fulfilledChk)}/>
+          <br/>
+          <Link onClick={varFulfilled}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varFulfilled}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varFulfilled}>[[email]]</Link><span> | </span>
+          <Link onClick={varFulfilled}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varFulfilled}>[[shop_domain]]</Link>
+          <TextField  onChange={(newValue) => setFulfilled(newValue)} placeholder="Enter Message" value={fulfilled}   /><br/> 
+        {/* Fulfilled Message Start */}
+
+        {/* Canceled Message Start */}
+          <Checkbox label="When Order Is Canceled"  checked={canceledChk}  onChange={()=>setCanceledChk(!canceledChk)}/> 
+          <br/>
+
+          <Link onClick={varCanceled}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varCanceled}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varCanceled}>[[email]]</Link><span> | </span>
+          <Link onClick={varCanceled}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varCanceled}>[[shop_domain]]</Link>
+          <TextField  onChange={(newValue) => setCanceled(newValue)}  placeholder="Enter Message" value={canceled}   /><br/>
+        {/* Canceled Message Start */}
+
+        {/* Abandoned Message Start */}
+          <Checkbox label="SMS for abandoned carts" checked={abandonedChk}  onChange={()=>setAbandonedChk(!abandonedChk)}/> 
+          <br/>
+          <Link onClick={varAbandoned}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varAbandoned}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varAbandoned}>[[email]]</Link><span> | </span>
+          <Link onClick={varAbandoned}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varAbandoned}>[[shop_domain]]</Link> 
+          <TextField  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned}/><br/>
+        {/* Abandoned Message Start */}
+
+        {/* Refunded Message Start */}
+          <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/>
+          <br/>
+
+          <Link onClick={varRefunded}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varRefunded}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varRefunded}>[[email]]</Link><span> | </span>
+          <Link onClick={varRefunded}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varRefunded}>[[shop_domain]]</Link>
+          <TextField  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund}      /><br/> 
+        {/* Refunded Message Start */}
+
+        {/* Marketing Message Start */}
+          <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/>
+          <br/>
+          <Link onClick={varSMS}>[[first_name]]</Link><span> | </span>
+          <Link onClick={varSMS}>[[last_name]]</Link><span> | </span>
+          <Link onClick={varSMS}>[[email]]</Link><span> | </span>
+          <Link onClick={varSMS}>[[shop_name]]</Link><span> | </span>
+          <Link onClick={varSMS}>[[shop_domain]]</Link>
+          <TextField  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS}                  />
+        {/* Marketing Message Start */}
           <br/>
           <div className="button"><Button primary type="submit" onClick={getName}>Save</Button></div>
           <Button destructive onClick={onClickHandler} >Cancel</Button>
