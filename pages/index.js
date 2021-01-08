@@ -31,15 +31,45 @@ function Index(){
   const [message,setMessage]=useState("Incorrect username/password")
   const [btn,setBtn]=useState(true)
   const [senderName,setSenderName]=useState("")
+  const [check,setCheck]=useState(false)
+  const [EnrtyStatus,setEntryStatus]=useState()
+  const [ShopName,setShopName]=useState("")
   // Creating User Table Entry
 
   function CreateUser(){
+    //Check If User EXISTS
+
+    if (EnrtyStatus==="logged_out" ||  EnrtyStatus==="logged_in"){
+      console.log(EnrtyStatus)
+      const STATUS = "logged_in";
+      const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/update/"+username+"/"+STATUS
+      var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(URL, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setUsername("")
+        setPassword("")
+        setSenderName("")
+        console.log(result)
+        setBtn(false)
+      })
+      .catch(error => console.log('error', error));
+    }
+
+    // If User Does Not Exist Make User Entry
+    else{
+      console.log(EnrtyStatus)
     const DUMMY_URL=window.location.ancestorOrigins.item(0);
     var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
     console.log(JSON.stringify(SHOP_URL))
     const USERNAME=username;
     const PASSWORD=password;
-    const SHOP_NAME="DUMMY";
+    const SHOP_NAME=SHOP_URL.replace(".myshopify.com","");
+    setShopName(SHOP_NAME)
     const STATUS="logged_in";
     const SENDER_NAME=senderName
     console.log(SENDER_NAME)
@@ -52,18 +82,20 @@ function Index(){
     fetch(URL, requestOptions)
       .then(response => response.text())
       .then(result => {
-        CreateTable()
+        CreateTable(SHOP_NAME)
         setBtn(false)
       })
       .catch(error => console.log('error', error));
+    }
   }
   // Creating Table If user Authenticated
-  function CreateTable(){
+  function CreateTable(shopname){
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+username;
+    console.log(shopname)
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+shopname;
     fetch(URL, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
@@ -159,13 +191,17 @@ useEffect(async function CheckUserStatus(){
           setPassword("")
           setSenderName("")
           setCredits("")
+          setCheck(false)
           setBtn(true)
+          setEntryStatus(result.response.status)
         }
         else{
           setSenderName(result.response.senderName)
           setUsername(result.response.username)
           setPassword(result.response.password)
+          setCheck(true)
           setBtn(false)
+          setEntryStatus(result.response.status)
         }
     }).catch(error => console.log('error', error));
     return <div></div>

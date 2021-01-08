@@ -221,7 +221,7 @@ app.prepare().then(() => {
   // Cancel Order
   router.post('/webhooks/orders/cancelled', webhook, (ctx) => {
     console.log("-------------------Order Cancelled---------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
     GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Order Cancelled---------------------")
@@ -233,7 +233,7 @@ app.prepare().then(() => {
   // Order Fulfilled
   router.post('/webhooks/orders/fulfilled', webhook, (ctx) => {
     console.log("-------------------Order Fulfilled---------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
     GetMessage(ctx.state.webhook.domain,"order_fulfillment","fulfillment_status",ctx.state.webhook.topic,ctx.state.webhook)
    
     // Do Something ...
@@ -245,7 +245,7 @@ app.prepare().then(() => {
   // Order Delete
   router.post('/webhooks/orders/delete', webhook, (ctx) => {
     console.log("-------------------Order Delete---------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
     // GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Order Delete---------------------")
@@ -256,7 +256,7 @@ app.prepare().then(() => {
    // Refund Create
    router.post('/webhooks/refunds/create', webhook, (ctx) => {
     console.log("-------------------Refunds Create---------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
     GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Refunds Create---------------------")
@@ -326,7 +326,10 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
   
   fetch(URL, requestOptions)
     .then(response => response.json())
-    .then(result => console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\nMessage-> "+result.message))
+    .then(result => {
+      console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\nMessage-> "+result.message)
+      replaceMessage_send(topic,result.message,webhook,result.message_staus)
+    })
     .catch(error => console.log('error', error));
 }
 
@@ -336,43 +339,144 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
  * then replace all the place holders
  */
 
-function replaceMessage_send(topic,message,webhook){
-
+function replaceMessage_send(topic,message,webhook,status){
+  var MESSAGE=""
+  console.log(status)
   switch(topic){
-  case "ORDER_CREATED":
-    message
+  case "ORDERS_CREATE":
+    const first_name=webhook.payload.billing_address.first_name
+    const last_name=webhook.payload.billing_address.last_name
+    const email=webhook.payload.email
+    const domain=webhook.domain
+    const currency=webhook.payload.customer.currency
+    const amount=webhook.payload.total_price
+    
+    MESSAGE=message.replace("[[first_name]]",first_name)
+                   .replace("[[last_name]]",last_name)
+                   .replace("[[email]]",email)
+                   .replace("[[shop_domain]]",domain)
+                   .replace("[[currency]]",currency)
+                   .replace("[[Amount]]",amount)
+    
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
+  break;
+  
+  case "ORDERS_CANCELLED":
+    MESSAGE=message
     .replace("[[first_name]]",webhook.payload.billing_address.first_name)
     .replace("[[last_name]]",webhook.payload.billing_address.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
-  break;
-  
-  case "ORDERS_CANCELLED":
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
   case "ORDERS_FULFILLED":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
   case "ORDERS_DELETE":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
   case "REFUNDS_CREATE":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
   case "CARTS_UPDATE":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
-  case "CUSTOMER_CREATE":
+  case "CUSTOMERS_CREATE":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
 
   case "APP_UNINSTALLED":
+    MESSAGE=message
+    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
+    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[email]]",webhook.payload.email)
+    .replace("[[shop_domain]]",webhook.domain)
+    
+    if(status==="true"){
+    console.log(MESSAGE)
+    }
+    else{
+      console.log("Message Status", status)
+    }
   break;
   
   }
+  // https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/Dear%20Customer%20Your%20order%20is%20canceled/971502738190
+
+  // var requestOptions = {
+  //   method: 'GET',
+  //   redirect: 'follow'
+  // };
   
-
-
-
-
+  // console.log(MESSAGE)
+  // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
 
 }

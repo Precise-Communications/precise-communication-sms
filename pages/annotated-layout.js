@@ -32,12 +32,12 @@ import {
   /**
    * For Text Changes
    */
-  const [signup,setSignup]=useState("NULL")
-  const [placed,setPlaced]=useState("NULL")
-  const [fulfilled,setFulfilled]=useState("NULL")
-  const [canceled,setCanceled]=useState("NULL")
-  const [abandoned,setAbandoned]=useState("NULL")
-  const [refund,setRefund]=useState("NULL")
+  const [signup,setSignup]=useState("Thankyou dear [[first_name]] for signing up with [[domain_name]]! have an awesome experience with us.")
+  const [placed,setPlaced]=useState("Hey [[first_name]], thanks for your purchase of [[currency]] [[Amount]] from [[domain_name]]!")
+  const [fulfilled,setFulfilled]=useState("Hey [[first_name]] thanks for your purchase, we are happy to inform you that your order has been fulfilled.")
+  const [canceled,setCanceled]=useState("Your order from [[domain_name]] has been cancelled. We'll notify you once the refund is initiated.")
+  const [abandoned,setAbandoned]=useState("Hey [[first_name]], we noticed that you added [[product]] to your cart but didn’t check out.")
+  const [refund,setRefund]=useState("Hey [[first_name]] your request for refund of [[order_id]] has been fulfilled.")
   const [SMS,setSMS]=useState("NULL")
   /**
    * for checkbox Changes
@@ -74,7 +74,7 @@ import {
     console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
-      url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+      url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
       headers: {}
     };
     axios(config)
@@ -96,7 +96,7 @@ function getName(){
   };
   const DUMMY_URL=window.location.ancestorOrigins.item(0);
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-  fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
+  fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
       if(result.status==="500" || result.response.status==="logged_out"){
@@ -109,7 +109,7 @@ function getName(){
       {
         setErrorStatus(false)
         console.log(result)
-        setStore(result.response.username)
+        setStore(result.response.store_name)
         console.log(result.response)
         onsubmitHandler()        
       }
@@ -184,7 +184,7 @@ function varSMS(e){
         {/* Fulfilled Message Start */}
 
         {/* Canceled Message Start */}
-          <Checkbox label="When Order Is Canceled"  checked={canceledChk}  onChange={()=>setCanceledChk(!canceledChk)}/> 
+          <Checkbox label="When Order Is Cancelled"  checked={canceledChk}  onChange={()=>setCanceledChk(!canceledChk)}/> 
           <br/>
 
           <Link onClick={varCanceled}>[[first_name]]</Link><span> | </span>
