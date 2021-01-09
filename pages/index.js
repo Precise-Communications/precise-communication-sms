@@ -54,7 +54,7 @@ function Index(){
         setUsername("")
         setPassword("")
         setSenderName("")
-        console.log(result)
+        // console.log(result)
         setBtn(false)
       })
       .catch(error => console.log('error', error));
@@ -62,17 +62,17 @@ function Index(){
 
     // If User Does Not Exist Make User Entry
     else{
-      console.log(EnrtyStatus)
+      // console.log(EnrtyStatus)
     const DUMMY_URL=window.location.ancestorOrigins.item(0);
     var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-    console.log(JSON.stringify(SHOP_URL))
+    // console.log(JSON.stringify(SHOP_URL))
     const USERNAME=username;
     const PASSWORD=password;
     const SHOP_NAME=SHOP_URL.replace(".myshopify.com","");
     setShopName(SHOP_NAME)
     const STATUS="logged_in";
     const SENDER_NAME=senderName
-    console.log(SENDER_NAME)
+    // console.log(SENDER_NAME)
     const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
     var requestOptions = {
       method: 'GET',
@@ -94,11 +94,11 @@ function Index(){
       method: 'GET',
       redirect: 'follow'
     };
-    console.log(shopname)
+    // console.log(shopname)
     const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+shopname;
     fetch(URL, requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      // .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
   function onSubmitHandler(e){
@@ -156,7 +156,7 @@ function Index(){
         setUsername("")
         setPassword("")
         setSenderName("")
-        console.log(result)
+        // console.log(result)
         setBtn(true)
       })
       .catch(error => console.log('error', error));
@@ -181,11 +181,11 @@ useEffect(async function CheckUserStatus(){
   }
   //
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-  console.log(SHOP_URL)
+  // console.log(SHOP_URL)
   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
-        console.log(result)
+        // console.log(result)
         if (result.status==="500" || result.response.status==="logged_out"){
           setUsername("")
           setPassword("")

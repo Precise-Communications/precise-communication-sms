@@ -71,7 +71,7 @@ import {
   function onsubmitHandler(){
     if(errorStatus===false){
     const STORE=store.replace(/(^\w+:|^)\/\//, '')
-    console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
+    // console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
       url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
@@ -79,7 +79,7 @@ import {
     };
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);
@@ -100,7 +100,7 @@ function getName(){
     .then(response => response.json())
     .then(result =>{
       if(result.status==="500" || result.response.status==="logged_out"){
-        console.log(result.response)
+        // console.log(result.response)
         setStore("")
         setErrorStatus(true)
         setError("You might not have logged in. Please log in to store messages")
@@ -108,9 +108,9 @@ function getName(){
       else
       {
         setErrorStatus(false)
-        console.log(result)
+        // console.log(result)
         setStore(result.response.store_name)
-        console.log(result.response)
+        // console.log(result.response)
         onsubmitHandler()        
       }
      
