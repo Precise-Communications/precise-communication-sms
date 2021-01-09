@@ -82,7 +82,7 @@ import {
       // console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
     });
     }
     // 
@@ -114,7 +114,9 @@ function getName(){
         onsubmitHandler()        
       }
      
-    }).catch(error => console.log('error', error));
+    }).catch(error => {
+      // console.log('error', error)
+    });
     
 }
 // Var Appending
