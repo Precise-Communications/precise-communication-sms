@@ -451,14 +451,10 @@ function replaceMessage_send(topic,message,webhook,status){
       console.log("Message Status", status)
     }
   break;
+  //Changed Order_id var
 
   case "REFUNDS_CREATE":
-    MESSAGE=message
-    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
-    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
-    .replace("[[email]]",webhook.payload.email)
-    .replace("[[shop_domain]]",webhook.domain)
-    .replace("[[order_id]]",webhook.order_id)
+    MESSAGE=message.replace("[[order_id]]",webhook.order_id)
     if(status==="true"){
           console.log(MESSAGE)
         //   var requestOptions = {
