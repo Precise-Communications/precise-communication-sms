@@ -242,7 +242,7 @@ useEffect(async function CheckUserStatus(){
     <br/>
      <TextField
       name="password"
-      label="password"
+      label="Password"
       value={password}
       placeholder="Enter Password"
       id="Password"

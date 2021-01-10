@@ -37,7 +37,7 @@ import {
   const [fulfilled,setFulfilled]=useState("Hey [[first_name]] thanks for your purchase, we are happy to inform you that your order has been fulfilled.")
   const [canceled,setCanceled]=useState("Your order from [[shop_domain]] has been cancelled. We'll notify you once the refund is initiated.")
   const [abandoned,setAbandoned]=useState("Hey [[first_name]], we noticed that you added [[product]] to your cart but didn’t check out.")
-  const [refund,setRefund]=useState("Hey your request for refund has been fulfilled.")
+  const [refund,setRefund]=useState("Hey your request for refund of [[order_id]] has been fulfilled.")
   const [SMS,setSMS]=useState("FLAT [[discount]] OFF welcome offer @[[shop_domain]]. Offer valid till 15-jan-21")
   /**
    * for checkbox Changes
@@ -160,7 +160,7 @@ function varSMS(e){
           <Link onClick={varSignup} >[[email]]</Link><span> | </span>
           <Link onClick={varSignup} >[[shop_name]]</Link><span> | </span>
           <Link onClick={varSignup} >[[shop_domain]]</Link>
-          <TextField onChange={(newValue) => setSignup(newValue)} placeholder="Enter Message" value={signup}           /> <br/>
+          <TextField helpText="" onChange={(newValue) => setSignup(newValue)} placeholder="Enter Message" value={signup} maxLength={140} showCharacterCount/> <br/>
         {/* Signup Message End */}
 
         {/* Placed Message Start */}
@@ -171,7 +171,7 @@ function varSMS(e){
           <Link onClick={varPlaced}>[[email]]</Link><span> | </span>
           <Link onClick={varPlaced}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varPlaced}>[[shop_domain]]</Link>
-          <TextField onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed}       /><br/> 
+          <TextField helpText="" onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed} maxLength={140} showCharacterCount/><br/> 
         {/* Placed Message Start */}
 
         {/* Fulfilled Message Start */}
@@ -182,7 +182,7 @@ function varSMS(e){
           <Link onClick={varFulfilled}>[[email]]</Link><span> | </span>
           <Link onClick={varFulfilled}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varFulfilled}>[[shop_domain]]</Link>
-          <TextField  onChange={(newValue) => setFulfilled(newValue)} placeholder="Enter Message" value={fulfilled}   /><br/> 
+          <TextField helpText=""  onChange={(newValue) => setFulfilled(newValue)} placeholder="Enter Message" value={fulfilled} maxLength={140} showCharacterCount /><br/> 
         {/* Fulfilled Message Start */}
 
         {/* Canceled Message Start */}
@@ -194,7 +194,7 @@ function varSMS(e){
           <Link onClick={varCanceled}>[[email]]</Link><span> | </span>
           <Link onClick={varCanceled}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varCanceled}>[[shop_domain]]</Link>
-          <TextField  onChange={(newValue) => setCanceled(newValue)}  placeholder="Enter Message" value={canceled}   /><br/>
+          <TextField helpText=""  onChange={(newValue) => setCanceled(newValue)}  placeholder="Enter Message" value={canceled}  maxLength={140} showCharacterCount/><br/>
         {/* Canceled Message Start */}
 
         {/* Abandoned Message Start */}
@@ -205,19 +205,15 @@ function varSMS(e){
           <Link onClick={varAbandoned}>[[email]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[shop_domain]]</Link> 
-          <TextField  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned}/><br/>
+          <TextField helpText=""  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned} maxLength={140} showCharacterCount/><br/>
         {/* Abandoned Message Start */}
 
         {/* Refunded Message Start */}
           <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/>
           <br/>
 
-          <Link onClick={varRefunded}>[[first_name]]</Link><span> | </span>
-          <Link onClick={varRefunded}>[[last_name]]</Link><span> | </span>
-          <Link onClick={varRefunded}>[[email]]</Link><span> | </span>
-          <Link onClick={varRefunded}>[[shop_name]]</Link><span> | </span>
-          <Link onClick={varRefunded}>[[shop_domain]]</Link>
-          <TextField  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund}      /><br/> 
+          <Link onClick={varRefunded}>[[order_id]]</Link>
+          <TextField helpText=""  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund} maxLength={140} showCharacterCount/><br/> 
         {/* Refunded Message Start */}
 
         {/* Marketing Message Start */}
@@ -228,7 +224,7 @@ function varSMS(e){
           <Link onClick={varSMS}>[[email]]</Link><span> | </span>
           <Link onClick={varSMS}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varSMS}>[[shop_domain]]</Link>
-          <TextField  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS}                  />
+          <TextField helpText=""  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS} maxLength={140} showCharacterCount/>
         {/* Marketing Message Start */}
           <br/>
           <div className="button"><Button primary type="submit" onClick={getName}>Save</Button></div>
