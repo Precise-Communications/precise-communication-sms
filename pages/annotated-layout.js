@@ -32,13 +32,13 @@ import {
   /**
    * For Text Changes
    */
-  const [signup,setSignup]=useState("Thankyou dear [[first_name]] for signing up with [[domain_name]]! have an awesome experience with us.")
-  const [placed,setPlaced]=useState("Hey [[first_name]], thanks for your purchase of [[currency]] [[Amount]] from [[domain_name]]!")
+  const [signup,setSignup]=useState("Thankyou dear [[first_name]] for signing up with [[shop_domain]]! have an awesome experience with us.")
+  const [placed,setPlaced]=useState("Hey [[first_name]], thanks for your purchase of [[currency]] [[Amount]] from [[shop_domain]]!")
   const [fulfilled,setFulfilled]=useState("Hey [[first_name]] thanks for your purchase, we are happy to inform you that your order has been fulfilled.")
-  const [canceled,setCanceled]=useState("Your order from [[domain_name]] has been cancelled. We'll notify you once the refund is initiated.")
+  const [canceled,setCanceled]=useState("Your order from [[shop_domain]] has been cancelled. We'll notify you once the refund is initiated.")
   const [abandoned,setAbandoned]=useState("Hey [[first_name]], we noticed that you added [[product]] to your cart but didn’t check out.")
-  const [refund,setRefund]=useState("Hey [[first_name]] your request for refund of [[order_id]] has been fulfilled.")
-  const [SMS,setSMS]=useState("NULL")
+  const [refund,setRefund]=useState("Hey [[first_name]] your request for refund has been fulfilled.")
+  const [SMS,setSMS]=useState("FLAT [[discount]] OFF welcome offer @[[shop_domain]]. Offer valid till 15-jan-21")
   /**
    * for checkbox Changes
    */
