@@ -37,7 +37,7 @@ import {
   const [fulfilled,setFulfilled]=useState("Hey [[first_name]] thanks for your purchase, we are happy to inform you that your order has been fulfilled.")
   const [canceled,setCanceled]=useState("Your order from [[shop_domain]] has been cancelled. We'll notify you once the refund is initiated.")
   const [abandoned,setAbandoned]=useState("Hey [[first_name]], we noticed that you added [[product]] to your cart but didn’t check out.")
-  const [refund,setRefund]=useState("Hey [[first_name]] your request for refund has been fulfilled.")
+  const [refund,setRefund]=useState("Hey your request for refund has been fulfilled.")
   const [SMS,setSMS]=useState("FLAT [[discount]] OFF welcome offer @[[shop_domain]]. Offer valid till 15-jan-21")
   /**
    * for checkbox Changes
