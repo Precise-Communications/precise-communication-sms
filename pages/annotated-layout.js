@@ -32,7 +32,7 @@ import {
   /**
    * For Text Changes
    */
-  const [signup,setSignup]=useState("Thankyou dear [[first_name]] for signing up with [[shop_domain]]! have an awesome experience with us.")
+  const [signup,setSignup]=useState("Thank you [[first_name]] for signing up with [[shop_domain]]! have an awesome experience with us.")
   const [placed,setPlaced]=useState("Hey [[first_name]], thanks for your purchase of [[currency]] [[Amount]] from [[shop_domain]]!")
   const [fulfilled,setFulfilled]=useState("Hey [[first_name]] thanks for your purchase, we are happy to inform you that your order has been fulfilled.")
   const [canceled,setCanceled]=useState("Your order from [[shop_domain]] has been cancelled. We'll notify you once the refund is initiated.")
