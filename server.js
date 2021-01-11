@@ -501,8 +501,8 @@ function replaceMessage_send(topic,message,webhook,status){
 
   case "CUSTOMERS_CREATE":
     MESSAGE=message
-    .replace("[[first_name]]",webhook.payload.billing_address.first_name)
-    .replace("[[last_name]]",webhook.payload.billing_address.last_name)
+    .replace("[[first_name]]",webhook.payload.first_name)
+    .replace("[[last_name]]",webhook.payload.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
