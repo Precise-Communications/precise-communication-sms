@@ -278,7 +278,7 @@ app.prepare().then(() => {
   // Customer Creation
   router.post('/webhooks/customers/create', webhook, (ctx) => {
     console.log("-------------------Customer Create---------------------")
-    console.log('received webhook: ', ctx.state.webhook.payload);
+    console.log('received webhook: ', ctx.state.webhook);
     GetMessage(ctx.state.webhook.domain,"account_creation","account_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Customer Create---------------------")
