@@ -360,17 +360,17 @@ function replaceMessage_send(topic,message,webhook,status){
     
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -385,17 +385,17 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -410,17 +410,17 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -435,17 +435,17 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -457,17 +457,17 @@ function replaceMessage_send(topic,message,webhook,status){
     MESSAGE=message.replace("[[order_id]]",webhook.payload.order_id)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -482,17 +482,17 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -507,17 +507,17 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[shop_domain]]",webhook.domain)
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
@@ -533,17 +533,17 @@ function replaceMessage_send(topic,message,webhook,status){
     
     if(status==="true"){
           console.log(MESSAGE)
-        //   var requestOptions = {
-        //   method: 'GET',
-        //   redirect: 'follow'
-        // };
+          var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
         
-        // console.log(MESSAGE)
-        // fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
-        // console.log(MESSAGE)
+        console.log(MESSAGE)
+        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971503657140", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
