@@ -74,17 +74,34 @@ import {
     // console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
-      url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+      url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/truncate/"+STORE,
       headers: {}
     };
     axios(config)
     .then(function (response) {
-      // console.log(JSON.stringify(response.data));
+      if(response.json().status==="200"){
+        // Inserting Messages if STATUS is 200 OK
+        var config = {
+          method: 'get',
+          url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+          headers: {}
+        };
+        axios(config)
+        .then(function (response) {
+         console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+      // Message Sending Done
     })
+    //Main .then Catch Block
     .catch(function (error) {
-      // console.log(error);
+     console.log(error);
     });
     }
+  
     // 
 }
 
