@@ -20,11 +20,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, shopOrigin } = this.props;
 
-    const config = { apiKey: API_KEY, shopOrigin, forceRedirect: true };
+    const config = { apiKey: API_KEY, shopOrigin:shopOrigin, forceRedirect: true };
     return (
       <React.Fragment>
         <Head>
-          <title>Sample App</title>
+          <title>Precise Communications SMS</title>
           <meta charSet="utf-8" />
         </Head>
         <Provider config={config}>

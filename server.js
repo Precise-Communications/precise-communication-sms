@@ -171,7 +171,52 @@ app.prepare().then(() => {
             console.log('Failed to register webhook For App Uninstalled!', registration.result);
           }
           /*__________________________________________________________________________________*/
+          // GDPR WEB HOOKS
 
+          // CUSTOMER REDACT
+          // registration = await registerWebhook({
+          //   address: `${HOST}/webhooks/customers/redact`,
+          //   topic: 'CUSTOMERS_REDACT',
+          //   accessToken,
+          //   shop,
+          //   apiVersion: ApiVersion.July20
+          // });
+          // if (registration.success) {
+          //   console.log('Successfully registered webhook For CUSTOMER REDACT!', registration);
+          // } else {
+          //   console.log('Failed to register webhook For CUSTOMER REDACT!', registration.result);
+          // }
+          //  /*__________________________________________________________________________________*/
+
+          //  // SHOP REDACT
+          //  registration = await registerWebhook({
+          //   address: `${HOST}/webhooks/shop/redact`,
+          //   topic: 'SHOP_REDACT',
+          //   accessToken,
+          //   shop,
+          //   apiVersion: ApiVersion.July20
+          // });
+          // if (registration.success) {
+          //   console.log('Successfully registered webhook For SHOP REDACT!', registration);
+          // } else {
+          //   console.log('Failed to register webhook For SHOP REDACT!', registration.result);
+          // }
+          // /*__________________________________________________________________________________*/
+
+          //  // SHOP REDACT
+          //  registration = await registerWebhook({
+          //   address: `${HOST}/webhooks/customers/data_request`,
+          //   topic: 'CUSTOMERS_DATA_REQUEST',
+          //   accessToken,
+          //   shop,
+          //   apiVersion: ApiVersion.July20
+          // });
+          // if (registration.success) {
+          //   console.log('Successfully registered webhook For CUSTOMER DATA REQUEST!', registration);
+          // } else {
+          //   console.log('Failed to register webhook For CUSTOMER DATA REQUEST!', registration.result);
+          // }
+          /*__________________________________________________________________________________*/
       }
       
     })
@@ -298,6 +343,31 @@ app.prepare().then(() => {
 
   /*__________________________________________________________________________________*/
 
+  //GDPR WEBHOOKS
+
+  // Customer Redact
+  router.post(`${HOST}/webhooks/customers/redact`, webhook, (ctx) => {
+    console.log("-------------------CUSTOMER REDACT---------------------")
+    console.log('received webhook: ', ctx.state.webhook);
+    // Do Something ...
+    console.log("-------------------CUSTOMER REDACT---------------------")
+  });
+ /*__________________________________________________________________________________*/
+  // Shop Redact
+  router.post(`${HOST}/webhooks/shop/redact`, webhook, (ctx) => {
+    console.log("-------------------SHOP REDACT---------------------")
+    console.log('received webhook: ', ctx.state.webhook);
+    // Do Something ...
+    console.log("-------------------SHOP REDACT---------------------")
+  });
+ /*__________________________________________________________________________________*/
+ router.post(`${HOST}/webhooks/customers/data_request`, webhook, (ctx) => {
+  console.log("-------------------CUSTOMER DATA REQUEST---------------------")
+  console.log('received webhook: ', ctx.state.webhook);
+  // Do Something ...
+  console.log("-------------------CUSTOMER DATA REQUEST---------------------")
+});
+  /*__________________________________________________________________________________*/
   // These Functions Will Respond 200OK To Shopify Server Within 5 Secs
   server.use(graphQLProxy({ version: ApiVersion.July20 }));       //GraphQL Admin API
 

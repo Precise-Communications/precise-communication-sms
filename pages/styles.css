@@ -13,3 +13,17 @@
 .SenderID{
     width:300px !important;
 }
+.sender-field{
+    width: 300px !important;
+}
+.sms-template{
+    max-width: 90vw;
+}
+.drop-zone{
+    border: 1px solid gray;
+    width: 90vw;
+    height: 20vh;
+    padding: 30px;
+    border-radius: 3px;
+    text-align: center;
+}
