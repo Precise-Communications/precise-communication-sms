@@ -342,32 +342,6 @@ app.prepare().then(() => {
   });
 
   /*__________________________________________________________________________________*/
-
-  //GDPR WEBHOOKS
-
-  // Customer Redact
-  router.post(`${HOST}/webhooks/customers/redact`, webhook, (ctx) => {
-    console.log("-------------------CUSTOMER REDACT---------------------")
-    console.log('received webhook: ', ctx.state.webhook);
-    // Do Something ...
-    console.log("-------------------CUSTOMER REDACT---------------------")
-  });
- /*__________________________________________________________________________________*/
-  // Shop Redact
-  router.post(`${HOST}/webhooks/shop/redact`, webhook, (ctx) => {
-    console.log("-------------------SHOP REDACT---------------------")
-    console.log('received webhook: ', ctx.state.webhook);
-    // Do Something ...
-    console.log("-------------------SHOP REDACT---------------------")
-  });
- /*__________________________________________________________________________________*/
- router.post(`${HOST}/webhooks/customers/data_request`, webhook, (ctx) => {
-  console.log("-------------------CUSTOMER DATA REQUEST---------------------")
-  console.log('received webhook: ', ctx.state.webhook);
-  // Do Something ...
-  console.log("-------------------CUSTOMER DATA REQUEST---------------------")
-});
-  /*__________________________________________________________________________________*/
   // These Functions Will Respond 200OK To Shopify Server Within 5 Secs
   server.use(graphQLProxy({ version: ApiVersion.July20 }));       //GraphQL Admin API
 
