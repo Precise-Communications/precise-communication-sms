@@ -340,6 +340,29 @@ app.prepare().then(() => {
     // Do Something ...
     console.log("-------------------App Uninstalled---------------------")
   });
+  /*__________________________________________________________________________________*/
+
+  router.post('/webhooks/customers/redact', webhook, (ctx) => {
+    console.log("-------------------CUSTOMER REDACT---------------------")
+    console.log('received webhook: ', ctx.state.webhook);
+    // Do Something ...
+    console.log("-------------------CUSTOMER REDACT---------------------")
+  });
+/*__________________________________________________________________________________*/
+  router.post('/webhooks/shop/redact', webhook, (ctx) => {
+    console.log("-------------------SHOP REDACT---------------------")
+    console.log('received webhook: ', ctx.state.webhook);
+    // Do Something ...
+    console.log("-------------------SHOP REDACT---------------------")
+  });
+  /*__________________________________________________________________________________*/
+
+  router.post('/webhooks/customers/data_request', webhook, (ctx) => {
+    console.log("-------------------DATA REDACT---------------------")
+    console.log('received webhook: ', ctx.state.webhook);
+    // Do Something ...
+    console.log("-------------------DATA REDACT---------------------")
+  });
 
   /*__________________________________________________________________________________*/
   // These Functions Will Respond 200OK To Shopify Server Within 5 Secs
