@@ -81,7 +81,7 @@ import {
     axios(config)
     .then(function (response) {
       console.log(response.data.status)
-      if(respo.data.status==="200"){
+      if(response.data.status==="200"){
         // Inserting Messages if STATUS is 200 OK
         var config = {
           method: 'get',
@@ -90,7 +90,7 @@ import {
         };
         axios(config)
         .then(function (response) {
-         console.log(JSON.stringify(response.data));
+         console.log(JSON.stringify(response));
         })
         .catch(function (error) {
           console.log(error);

@@ -27,7 +27,7 @@ import {
   import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
   import enTranslations from '@shopify/polaris/locales/en.json';
 
-
+  var numbers=[]
   function AnnotatedLayout()  {
 
     // State Configuration
@@ -40,41 +40,61 @@ import {
     const [sendErr,setSendErr]=useState(false)
     const [highlighted,setHighlighted]=useState(false)
     const [Phone,setPhone]=useState([]);
-    var numbers=[]
+    const [loginErr,setLoginErr]=useState(false)
     const [active, setActive] = useState(false);
     const [DummyUrl,setDummyUrl]=useState("")
+    const [ToastContent,setToastContent]=useState("")
     
     const toggleActive = useCallback(() => setActive((active) => !active), []);
     //End State Configuration
    
     const toastMarkup = active ? (
-      <Toast content="File Uploaded" onDismiss={toggleActive} />
+      <Toast content={ToastContent} onDismiss={toggleActive} />
     ) : null;
 
 
     //Functions
 
     function onSendHandler(){
+        // console.log(numbers)
       if(message===""){
         setErr(true)
         setSendErr(true)
           setErrMessage("Message Boday Cannot Be Empty")
       }
       else if(numbers.length===0){
+        // console.log(numbers.length)
         setErr(false)
         setSendErr(true)
           setErrMessage("Please import customer CSV to send message")
       }
       else{
         setErr(false)
+        setSendErr(false)
+        numbers.pop("")
+        numbers.pop(undefined)
+        const FORMATTED_ARRAY=JSON.stringify(numbers)
+        const SERIALIZED=encodeURIComponent(FORMATTED_ARRAY)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/bulkmessage/"+SERIALIZED)
+        .then(response=>response.json())
+        .then(json=>{
+          // console.log(json)
+        })
       }
     }
     function setArray(){
-      Phone.map(Phone=>numbers.push(Phone.Phone))
-      console.log(numbers.length)
+      Phone.map(Phone=>
+        {
+         numbers.push(Phone.Phone)
+        }
+        )
+      // console.log(numbers)
+
     }
     
     useEffect(async function(){
+      setErr(false)
+      setSendErr(false)
       if(document.location.ancestorOrigins.item(0)==="null"){
         setDummyUrl(document.location.host);
        }
@@ -92,7 +112,7 @@ import {
       .then(result =>{
           // console.log(result)
           if (result.status==="500" || result.response.status==="logged_out"){
-            alert("Not Logged In")
+            setLoginErr(true)
           }
           else{
             var requestOptions = {
@@ -100,18 +120,43 @@ import {
               redirect: 'follow'
             };
             SHOP_URL=SHOP_URL.replace(".myshopify.com","")
-            console.log(SHOP_URL)
-            setSenderName(result.response.MarketingID)
+            setSenderName(result.response.marktingID)
             fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/select_marketing/"+SHOP_URL,requestOptions)
             .then(response=>response.json())
             .then(json=>{
+              // console.log(json.details)
+              if (json.details !== null){
               setMessage(json.details.marketing_sms)
+              }
+              else{
+                setMessage("Marketing SMS")
+              }
               // console.log(json)
             })
             .catch(console.log(err))
           }
       }).catch(error => console.log('error', error));
-    })
+    },[])
+    function onSaveHandler(){
+      if(message!==""){
+        var config = {
+          method: 'get',
+          url: 'https://Precise-Comm-SMS.ishanjirety.repl.co/api/marketingsms/candor-sms/'+message,
+          headers: {}
+        };
+        
+        axios(config)
+        .then(function (response) {
+          // console.log(JSON.stringify(response.data));
+          setActive(true)
+          setToastContent("Updated Marketing Message")
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+      }
+    }
     // End Of Functions
 
       return (
@@ -125,17 +170,18 @@ import {
           onSelection={(resources) => ResSelection(resources)}
           onCancel={() => setResSelection(false)}
         />
+        {loginErr && <InlineError message="You might have not logged in. Please try again" fieldID="myFieldID" /> }
         <div className="sender-field">
             <TextField label="Sender Name" value={SenderName} onChange={(newValue) => setSenderName(newValue)} disabled/>
         </div>
         <br/>
         <div className="sms-template">
-        <Checkbox label="Marketing SMS Template" checked={checked}  onChange={(newvalue)=>setChecked(!checked)}/>
-        <TextField value={message} onChange={(newValue) => setMessage(newValue)} />
+        <Checkbox label="Marketing SMS Template" checked={checked} disabled={loginErr} onChange={(newvalue)=>setChecked(!checked)}/>
+        <TextField value={message} onChange={(newValue) => setMessage(newValue)} disabled={loginErr} />
         {err &&
             <InlineError message={errMessage} fieldID="myFieldID"/> }
         <br/>
-        <Button primary>Save</Button>
+        <Button primary disabled={loginErr} onClick={onSaveHandler}>Save</Button>
         </div>
         <br/>
         <div>
@@ -145,8 +191,10 @@ import {
           onDrop={(e)=>{
             e.preventDefault();
             setPhone([])
-            console.log(e.dataTransfer.files)
+            // console.log(e.dataTransfer.files)
             setActive(true)
+            numbers=[]
+            setToastContent("File Uploaded")
             Array.from(e.dataTransfer.files)
             .filter(file=>file.type==="text/csv" || file.type==="application/vnd.ms-excel")
               .forEach(async (file)=>{
@@ -162,7 +210,7 @@ import {
  </div>
  <br/>
  {sendErr && <InlineError message={errMessage} fieldID="myFieldID"/> }
-        <div  className="button"><Button primary onClick={onSendHandler}>Send</Button></div><Button destructive>Cancel</Button>
+        <div  className="button"><Button primary onClick={onSendHandler} disabled={loginErr}>Send</Button></div><Button destructive>Cancel</Button>
         {toastMarkup}
         </Frame>
         </Page>
