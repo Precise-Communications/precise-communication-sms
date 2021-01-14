@@ -34,6 +34,7 @@ function Index(){
   const [check,setCheck]=useState(false)
   const [EnrtyStatus,setEntryStatus]=useState()
   const [ShopName,setShopName]=useState("")
+  const [MarketingID,setMarketingSenderName]=useState("")
   // Creating User Table Entry
 
   function CreateUser(){
@@ -72,8 +73,10 @@ function Index(){
     setShopName(SHOP_NAME)
     const STATUS="logged_in";
     const SENDER_NAME=senderName
+    const MARK_SMS=MarketingID
     // console.log(SENDER_NAME)
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
+    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+MarketingID+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
+
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -197,6 +200,7 @@ useEffect(async function CheckUserStatus(){
         }
         else{
           setSenderName(result.response.senderName)
+          setMarketingSenderName(result.response.MarketingID)
           setUsername(result.response.username)
           setPassword(result.response.password)
           setCheck(true)
@@ -227,6 +231,17 @@ useEffect(async function CheckUserStatus(){
       onChange={(newValue) => setSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
       disabled={!btn}
       id="username"
+    /></div>
+       <div className="SenderID">
+    <TextField 
+      name="sendernameMarketing"
+      label="Marketing Sender ID"
+      value={MarketingID}
+      placeholder="Enter Sender Name"
+      disabled={false}
+      onChange={(newValue) => setMarketingSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+      disabled={!btn}
+      id="Marketing SMS"
     /></div>
     <br/>
     <TextField 

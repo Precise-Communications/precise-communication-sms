@@ -42,6 +42,7 @@ import {
     const [Phone,setPhone]=useState([]);
     var numbers=[]
     const [active, setActive] = useState(false);
+    const [DummyUrl,setDummyUrl]=useState("")
     
     const toggleActive = useCallback(() => setActive((active) => !active), []);
     //End State Configuration
@@ -72,7 +73,45 @@ import {
       Phone.map(Phone=>numbers.push(Phone.Phone))
       console.log(numbers.length)
     }
-
+    
+    useEffect(async function(){
+      if(document.location.ancestorOrigins.item(0)==="null"){
+        setDummyUrl(document.location.host);
+       }
+       else{
+         setDummyUrl(document.location.ancestorOrigins.item(0));
+       }
+       //
+       var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '');
+       var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
+      .then(response => response.json())
+      .then(result =>{
+          // console.log(result)
+          if (result.status==="500" || result.response.status==="logged_out"){
+            alert("Not Logged In")
+          }
+          else{
+            var requestOptions = {
+              method: 'GET',
+              redirect: 'follow'
+            };
+            SHOP_URL=SHOP_URL.replace(".myshopify.com","")
+            console.log(SHOP_URL)
+            setSenderName(result.response.MarketingID)
+            fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/select_marketing/"+SHOP_URL,requestOptions)
+            .then(response=>response.json())
+            .then(json=>{
+              setMessage(json.details.marketing_sms)
+              // console.log(json)
+            })
+            .catch(console.log(err))
+          }
+      }).catch(error => console.log('error', error));
+    })
     // End Of Functions
 
       return (

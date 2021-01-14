@@ -28,6 +28,7 @@ import {
    */
     const[errorStatus,setErrorStatus]=useState(false)
     const[error,setError]=useState()
+    const [respo,setRespo]=useState()
 
   /**
    * For Text Changes
@@ -79,7 +80,8 @@ import {
     };
     axios(config)
     .then(function (response) {
-      if(response.json().status==="200"){
+      console.log(response.data.status)
+      if(respo.data.status==="200"){
         // Inserting Messages if STATUS is 200 OK
         var config = {
           method: 'get',
@@ -94,7 +96,6 @@ import {
           console.log(error);
         });
       }
-      // Message Sending Done
     })
     //Main .then Catch Block
     .catch(function (error) {
