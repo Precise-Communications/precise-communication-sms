@@ -37,9 +37,11 @@ app.prepare().then(() => {
       async afterAuth(ctx) {
         const { shop, accessToken } = ctx.session;
         ctx.cookies.set("shopOrigin", shop, {
-          httpOnly: false,
+          httpOnly: true,
           secure: true,
-          sameSite: 'none'
+          signed: true,
+          overwrite: true,
+          sameSite: 'none',
         });
         /** 
          * These Function Will Register Web Hooks 
