@@ -103,6 +103,8 @@ import {
        }
        //
        var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '');
+       console.log(DummyUrl)
+       console.log(SHOP_URL)
        var requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -114,6 +116,7 @@ import {
           // console.log(result)
           if (result.status==="500" || result.response.status==="logged_out"){
             setLoginErr(true)
+
           }
           else{
             var requestOptions = {
@@ -142,7 +145,7 @@ import {
       }).catch(error => console.log('error', error));
     },[])
     function onSaveHandler(){
-      var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '').replace(".myshopify.com");
+      var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '').replace(".myshopify.com","");
       console.log(SHOP_URL)
       if(message!==""){
         var config = {
