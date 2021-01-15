@@ -93,6 +93,7 @@ import {
     }
     
     useEffect(async function(){
+      var SHOP_URL
       setErr(false)
       setSendErr(false)
       console.log("AncestorsOrigin "+document.location.ancestorOrigins.item(0))
@@ -101,16 +102,15 @@ import {
       if(document.location.ancestorOrigins.item(0)===null){
         console.log("Stored Host Name "+ document.location.host)
         setDummyUrl(document.location.host);
+        SHOP_URL=(document.location.host).replace("https://","").replace("http://","")
         
        }
        else{
-        console.log("Stored AncestorOrigins "+document.location.ancestorOrigins.item(0))
+         console.log((document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://",""))
          setDummyUrl((document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://",""));
-         
+         SHOP_URL = (document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://","")
        }
        //
-       var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '');
-       console.log(DummyUrl)
        console.log(SHOP_URL)
        var requestOptions = {
         method: 'GET',
