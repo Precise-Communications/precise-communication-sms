@@ -42,7 +42,7 @@ import {
     const [Phone,setPhone]=useState([]);
     const [loginErr,setLoginErr]=useState(false)
     const [active, setActive] = useState(false);
-    const [DummyUrl,setDummyUrl]=useState("")
+    const [DummyUrl,setDummyUrl]=useState()
     const [ToastContent,setToastContent]=useState("")
     
     const toggleActive = useCallback(() => setActive((active) => !active), []);
@@ -95,14 +95,18 @@ import {
     useEffect(async function(){
       setErr(false)
       setSendErr(false)
-      console.log(document.location.ancestorOrigins.item(0))
-      console.log(document.location.host)
-      console.log(document.location.hostname)
+      console.log("AncestorsOrigin "+document.location.ancestorOrigins.item(0))
+      console.log("Host " +document.location.host)
+      console.log("HostName "+ document.location.hostname)
       if(document.location.ancestorOrigins.item(0)===null){
+        console.log("Stored Host Name "+ document.location.host)
         setDummyUrl(document.location.host);
+        
        }
        else{
+        console.log("Stored AncestorOrigins "+document.location.ancestorOrigins.item(0))
          setDummyUrl(document.location.ancestorOrigins.item(0));
+         
        }
        //
        var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '');
