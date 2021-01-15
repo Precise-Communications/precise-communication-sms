@@ -95,6 +95,9 @@ import {
     useEffect(async function(){
       setErr(false)
       setSendErr(false)
+      console.log(document.location.ancestorOrigins.item(0))
+      console.log(document.location.host)
+      console.log(document.location.hostname)
       if(document.location.ancestorOrigins.item(0)===null){
         setDummyUrl(document.location.host);
        }
