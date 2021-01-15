@@ -95,7 +95,7 @@ import {
     useEffect(async function(){
       setErr(false)
       setSendErr(false)
-      if(document.location.ancestorOrigins.item(0)==="null"){
+      if(document.location.ancestorOrigins.item(0)===null){
         setDummyUrl(document.location.host);
        }
        else{
@@ -143,6 +143,7 @@ import {
     },[])
     function onSaveHandler(){
       var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '').replace(".myshopify.com");
+      console.log(SHOP_URL)
       if(message!==""){
         var config = {
           method: 'get',
