@@ -107,7 +107,7 @@ import {
         method: 'GET',
         redirect: 'follow'
       };
-      console.log()
+      console.log("")
       fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
       .then(response => response.json())
       .then(result =>{
@@ -127,9 +127,9 @@ import {
             .then(response=>response.json())
             .then(json=>{
               // console.log(json.details)
-              console.log()
+              console.log("")
               if (json.details !== null || json.details !==undefined){
-                console.log()
+                console.log("")
               setMessage(json.details.marketing_sms)
               }
               else{
@@ -142,10 +142,11 @@ import {
       }).catch(error => console.log('error', error));
     },[])
     function onSaveHandler(){
+      var SHOP_URL = DummyUrl.replace(/(^\w+:|^)\/\//, '').replace(".myshopify.com");
       if(message!==""){
         var config = {
           method: 'get',
-          url: 'https://Precise-Comm-SMS.ishanjirety.repl.co/api/marketingsms/candor-sms/'+message,
+          url: 'https://Precise-Comm-SMS.ishanjirety.repl.co/api/marketingsms/'+SHOP_URL+'/'+message,
           headers: {}
         };
         
