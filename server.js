@@ -387,6 +387,9 @@ app.prepare().then(() => {
 
 // For Recieving Messages
 function GetMessage(url,hookCalled,hookStatus,topic,webhook){
+  var USERNAME
+  var PASSWORD
+  var SENDER_ID
   const URL="https://precise-comm-sms.ishanjirety.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
   var requestOptions = {
     method: 'GET',
@@ -396,8 +399,16 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
   fetch(URL, requestOptions)
     .then(response => response.json())
     .then(result => {
-      console.log("This Is Retrievd Message After webhook generated on topic:"+topic+"\nMessage-> "+result.message)
-      replaceMessage_send(topic,result.message,webhook,result.message_staus)
+      console.log(url)
+      fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+url,requestOptions)
+      .then(response=>response.json())
+      .then(json=>{
+        USERNAME=json.response.username
+        PASSWORD=json.response.password
+        SENDER_ID=json.response.senderName
+        console.log(USERNAME+" " +PASSWORD+ " " +SENDER_ID)
+         replaceMessage_send(topic,result.message,webhook,result.message_staus,USERNAME,PASSWORD,SENDER_ID)
+      })
     })
     .catch(error => console.log('error', error));
 }
@@ -408,7 +419,7 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
  * then replace all the place holders
  */
 
-function replaceMessage_send(topic,message,webhook,status){
+function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SENDER_ID){
   var MESSAGE=""
   console.log(status)
   switch(topic){
@@ -426,7 +437,8 @@ function replaceMessage_send(topic,message,webhook,status){
                    .replace("[[shop_domain]]",domain)
                    .replace("[[currency]]",currency)
                    .replace("[[Amount]]",amount)
-    
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -435,7 +447,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -444,6 +456,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
   
   case "ORDERS_CANCELLED":
@@ -452,6 +465,8 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[last_name]]",webhook.payload.billing_address.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -460,7 +475,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -469,6 +484,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
 
   case "ORDERS_FULFILLED":
@@ -477,6 +493,8 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[last_name]]",webhook.payload.billing_address.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -485,7 +503,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -494,6 +512,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
 
   case "ORDERS_DELETE":
@@ -502,6 +521,8 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[last_name]]",webhook.payload.billing_address.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -510,7 +531,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -519,11 +540,14 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
   //Changed Order_id var
 
   case "REFUNDS_CREATE":
     MESSAGE=message.replace("[[order_id]]",webhook.payload.order_id)
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -532,7 +556,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -541,6 +565,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
 
   case "CARTS_UPDATE":
@@ -549,6 +574,8 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[last_name]]",webhook.payload.billing_address.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
+   PHONE_NUMBER=webhook.payload.customer.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -557,7 +584,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -566,6 +593,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
 
   case "CUSTOMERS_CREATE":
@@ -574,6 +602,8 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[last_name]]",webhook.payload.last_name)
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
+   PHONE_NUMBER=webhook.payload.phone
+    if(PHONE_NUMBER !== null){
     if(status==="true"){
           console.log(MESSAGE)
           var requestOptions = {
@@ -582,7 +612,7 @@ function replaceMessage_send(topic,message,webhook,status){
         };
         
         console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -591,6 +621,7 @@ function replaceMessage_send(topic,message,webhook,status){
     else{
       console.log("Message Status", status)
     }
+  }
   break;
 
   case "APP_UNINSTALLED":
@@ -600,23 +631,27 @@ function replaceMessage_send(topic,message,webhook,status){
     .replace("[[email]]",webhook.payload.email)
     .replace("[[shop_domain]]",webhook.domain)
     
-    if(status==="true"){
-          console.log(MESSAGE)
-          var requestOptions = {
-          method: 'GET',
-          redirect: 'follow'
-        };
-        
-        console.log(MESSAGE)
-        fetch("https://testyhideoussection.ishanjirety.repl.co/api/sendSMS/testsms/TST@2020/"+MESSAGE+"/971502738190", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-        console.log(MESSAGE)
-    }
-    else{
-      console.log("Message Status", status)
-    }
+   PHONE_NUMBER=webhook.payload.phone
+   if(PHONE_NUMBER !== null || PHONE_NUMBER !==''){
+   if(status==="true"){
+         console.log(MESSAGE)
+         var requestOptions = {
+         method: 'GET',
+         redirect: 'follow'
+       };
+       
+       console.log(MESSAGE)
+       fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+         .then(response => response.text())
+         .then(result => console.log(result))
+         .catch(error => console.log('error', error));
+       console.log(MESSAGE)
+   }
+   else{
+     console.log("Message Status", status)
+   }
+ }
+
   break;
   
   }
