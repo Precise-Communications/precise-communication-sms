@@ -107,6 +107,7 @@ import {
         method: 'GET',
         redirect: 'follow'
       };
+      console.log()
       fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
       .then(response => response.json())
       .then(result =>{
@@ -120,12 +121,15 @@ import {
               redirect: 'follow'
             };
             SHOP_URL=SHOP_URL.replace(".myshopify.com","")
+            console.log()
             setSenderName(result.response.marktingID)
             fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/select_marketing/"+SHOP_URL,requestOptions)
             .then(response=>response.json())
             .then(json=>{
               // console.log(json.details)
-              if (json.details !== null){
+              console.log()
+              if (json.details !== null || json.details !==undefined){
+                console.log()
               setMessage(json.details.marketing_sms)
               }
               else{
@@ -133,7 +137,7 @@ import {
               }
               // console.log(json)
             })
-            .catch(console.log(err))
+            .catch(err=>console.log(err))
           }
       }).catch(error => console.log('error', error));
     },[])

@@ -83,6 +83,7 @@ import {
       console.log(response.data.status)
       if(response.data.status==="200"){
         // Inserting Messages if STATUS is 200 OK
+        console.log(response.data.status)
         var config = {
           method: 'get',
           url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
