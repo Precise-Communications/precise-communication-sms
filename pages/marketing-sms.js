@@ -105,7 +105,7 @@ import {
        }
        else{
         console.log("Stored AncestorOrigins "+document.location.ancestorOrigins.item(0))
-         setDummyUrl(document.location.ancestorOrigins.item(0));
+         setDummyUrl((document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://",""));
          
        }
        //
