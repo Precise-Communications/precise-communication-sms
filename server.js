@@ -172,9 +172,9 @@ app.prepare().then(() => {
           }
           // await getSubscriptionUrl(ctx, accessToken, shop);
           const urlParams = new URLSearchParams(ctx.request.url);
-          const shop = urlParams.get('shop');
+          const shopNew = urlParams.get('shop');
   
-          ctx.redirect(`/?shop=${shop}`);
+          ctx.redirect(`/?shop=${shopNew}`);
       }
       
     })
