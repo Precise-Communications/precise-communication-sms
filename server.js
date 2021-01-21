@@ -10,7 +10,7 @@ const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook, registerWebhook } = require('@shopify/koa-shopify-webhooks');
-// const getSubscriptionUrl = require('./server/getSubscriptionUrl');
+const getSubscriptionUrl = require('./server/getSubscriptionUrl');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -33,15 +33,13 @@ app.prepare().then(() => {
     createShopifyAuth({
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
-      scopes: ['read_products', 'write_products','read_customers','read_orders'],
+      scopes: ['read_products','read_customers','read_orders'],
       async afterAuth(ctx) {
         const { shop, accessToken } = ctx.session;
         ctx.cookies.set("shopOrigin", shop, {
-          httpOnly: true,
+          httpOnly: false,
           secure: true,
-          signed: true,
-          overwrite: true,
-          sameSite: 'none',
+          sameSite: 'none'
         });
         /** 
          * These Function Will Register Web Hooks 
@@ -172,53 +170,7 @@ app.prepare().then(() => {
           } else {
             console.log('Failed to register webhook For App Uninstalled!', registration.result);
           }
-          /*__________________________________________________________________________________*/
-          // GDPR WEB HOOKS
-
-          // CUSTOMER REDACT
-          // registration = await registerWebhook({
-          //   address: `${HOST}/webhooks/customers/redact`,
-          //   topic: 'CUSTOMERS_REDACT',
-          //   accessToken,
-          //   shop,
-          //   apiVersion: ApiVersion.July20
-          // });
-          // if (registration.success) {
-          //   console.log('Successfully registered webhook For CUSTOMER REDACT!', registration);
-          // } else {
-          //   console.log('Failed to register webhook For CUSTOMER REDACT!', registration.result);
-          // }
-          //  /*__________________________________________________________________________________*/
-
-          //  // SHOP REDACT
-          //  registration = await registerWebhook({
-          //   address: `${HOST}/webhooks/shop/redact`,
-          //   topic: 'SHOP_REDACT',
-          //   accessToken,
-          //   shop,
-          //   apiVersion: ApiVersion.July20
-          // });
-          // if (registration.success) {
-          //   console.log('Successfully registered webhook For SHOP REDACT!', registration);
-          // } else {
-          //   console.log('Failed to register webhook For SHOP REDACT!', registration.result);
-          // }
-          // /*__________________________________________________________________________________*/
-
-          //  // SHOP REDACT
-          //  registration = await registerWebhook({
-          //   address: `${HOST}/webhooks/customers/data_request`,
-          //   topic: 'CUSTOMERS_DATA_REQUEST',
-          //   accessToken,
-          //   shop,
-          //   apiVersion: ApiVersion.July20
-          // });
-          // if (registration.success) {
-          //   console.log('Successfully registered webhook For CUSTOMER DATA REQUEST!', registration);
-          // } else {
-          //   console.log('Failed to register webhook For CUSTOMER DATA REQUEST!', registration.result);
-          // }
-          /*__________________________________________________________________________________*/
+          await getSubscriptionUrl(ctx, accessToken, shop);
       }
       
     })
