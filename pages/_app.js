@@ -39,6 +39,12 @@ class MyApp extends App {
 }
 
 MyApp.getInitialProps = async ({ ctx }) => {
+  const { shop } = ctx.session;
+        ctx.cookies.set("shopOrigin", shop, {
+          httpOnly: false,
+          secure: true,
+          sameSite: 'none'
+        });
     return {
       shopOrigin: ctx.query.shop,
     }
