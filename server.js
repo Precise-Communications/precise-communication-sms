@@ -41,6 +41,7 @@ app.prepare().then(() => {
           secure: true,
           sameSite: 'none'
         });
+        console.log(ctx.cookies.get("shopOrigin"))
         /** 
          * These Function Will Register Web Hooks 
          * And will trigger Events when called
