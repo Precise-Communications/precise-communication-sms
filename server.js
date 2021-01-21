@@ -170,7 +170,11 @@ app.prepare().then(() => {
           } else {
             console.log('Failed to register webhook For App Uninstalled!', registration.result);
           }
-          await getSubscriptionUrl(ctx, accessToken, shop);
+          // await getSubscriptionUrl(ctx, accessToken, shop);
+          const urlParams = new URLSearchParams(ctx.request.url);
+          const shop = urlParams.get('shop');
+  
+          ctx.redirect(`/?shop=${shop}`);
       }
       
     })

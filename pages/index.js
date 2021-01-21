@@ -200,7 +200,7 @@ useEffect(async function CheckUserStatus(){
         }
         else{
           setSenderName(result.response.senderName)
-          setMarketingSenderName(result.response.MarketingID)
+          setMarketingSenderName(result.response.marktingID)
           setUsername(result.response.username)
           setPassword(result.response.password)
           setCheck(true)
