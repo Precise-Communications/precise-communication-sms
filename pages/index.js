@@ -131,7 +131,7 @@ function Index(){
                          * call Repl API for User Insertion With ALL THE ENTRIES
                          * then call Repl API for Table Creation
                          */
-                        // setInstallationSteps(false)
+                      setInstallationSteps(false)
                         CreateUser()               
                         setBtn(true)
                         }
