@@ -235,6 +235,7 @@ useEffect(async function CheckUserStatus(){
     <br/>
     <List type="bullet">
     <List.Item>Customize message template using variable</List.Item>
+    <List.Item>Use check box to turn that feature on/off</List.Item>
     <List.Item>Save Template</List.Item>
     </List>
     <br/>
