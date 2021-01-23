@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react"
-import {AppProvider,TextField,Button,InlineError,Banner,Card,FormLayout,Heading,Badge,Stack,EmptyState, Layout, Page} from '@shopify/polaris';
+import {AppProvider,TextField,Button,Subheading,List,InlineError,Banner,Card,Link,FormLayout,Heading,Badge,Stack,EmptyState, Layout, Page} from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import "./styles.css"
@@ -35,26 +35,25 @@ function Index(){
   const [EnrtyStatus,setEntryStatus]=useState()
   const [ShopName,setShopName]=useState("")
   const [MarketingID,setMarketingSenderName]=useState("")
+  const [showInstallationSteps,setInstallationSteps]=useState(false)
   // Creating User Table Entry
 
   function CreateUser(){
     //Check If User EXISTS
 
     if (EnrtyStatus==="logged_out" ||  EnrtyStatus==="logged_in"){
-      console.log(EnrtyStatus)
+      // console.log(EnrtyStatus)
       const STATUS = "logged_in";
       const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/update/"+username+"/"+STATUS
       var requestOptions = {
       method: 'GET',
       redirect: 'follow'
+
     };
 
     fetch(URL, requestOptions)
       .then(response => response.json())
       .then(result => {
-        setUsername("")
-        setPassword("")
-        setSenderName("")
         // console.log(result)
         setBtn(false)
       })
@@ -132,6 +131,7 @@ function Index(){
                          * call Repl API for User Insertion With ALL THE ENTRIES
                          * then call Repl API for Table Creation
                          */
+                        // setInstallationSteps(false)
                         CreateUser()               
                         setBtn(true)
                         }
@@ -140,6 +140,7 @@ function Index(){
                           setCredits("")
                           setError(true)
                           setMessage("Incorrect username/password")
+                          setInstallationSteps(true)
                         }
                         })
                       }
@@ -159,8 +160,11 @@ function Index(){
         setUsername("")
         setPassword("")
         setSenderName("")
+        setMarketingSenderName("")
+        setCredits("")
         // console.log(result)
         setBtn(true)
+        setInstallationSteps(true)
       })
       .catch(error => console.log('error', error));
   }
@@ -195,6 +199,7 @@ useEffect(async function CheckUserStatus(){
           setSenderName("")
           setCredits("")
           setCheck(false)
+          setInstallationSteps(true)
           setBtn(true)
           setEntryStatus(result.response.status)
         }
@@ -206,6 +211,7 @@ useEffect(async function CheckUserStatus(){
           setCheck(true)
           setBtn(false)
           setEntryStatus(result.response.status)
+          setInstallationSteps(false)
         }
     }).catch(error => console.log('error', error));
     return <div></div>
@@ -213,8 +219,35 @@ useEffect(async function CheckUserStatus(){
 
       // const [error,setError]=useState("false")
     return (
+      
       <AppProvider i18n={enTranslations}>
     <div>
+      {showInstallationSteps && 
+    <Card title="Setup Instructions" sectioned>  
+    <Subheading>Account Setup</Subheading>
+    <br/>
+    <List type="bullet">
+    <List.Item>Enter Sender ID and Marketing ID  provide by <Link url="https://www.tobeprecise.com/" external>Precise Communications</Link></List.Item>
+    <List.Item>Enter valid Username and Password.</List.Item>
+    </List>
+    <br/>
+    <Subheading>Customer Template</Subheading>
+    <br/>
+    <List type="bullet">
+    <List.Item>Customize message template using variable</List.Item>
+    <List.Item>Save Template</List.Item>
+    </List>
+    <br/>
+    <Subheading>SMS Marketing</Subheading>
+    <br/>
+    <List type="bullet">
+    <List.Item>Customize message for users.</List.Item>
+    <List.Item>Save Template.</List.Item>
+    <List.Item>Import customer CSV file. </List.Item>
+    <List.Item>Click Send.</List.Item>
+    </List>
+</Card>
+}
      <Card title="Available Credits" sectioned>
   <h3>{credits}</h3>
     </Card>
