@@ -27,3 +27,7 @@
     border-radius: 3px;
     text-align: center;
 }
+.warpper{
+    margin-left: 1rem !important;
+    padding-left: 1rem !important;
+}

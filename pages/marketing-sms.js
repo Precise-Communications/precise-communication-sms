@@ -71,24 +71,35 @@ import {
       else{
         setErr(false)
         setSendErr(false)
-        numbers.pop("")
-        numbers.pop(undefined)
+        // console.log(numbers)
         const FORMATTED_ARRAY=JSON.stringify(numbers)
         const SERIALIZED=encodeURIComponent(FORMATTED_ARRAY)
-        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/bulkmessage/"+SERIALIZED)
+        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/bulkmessage/"+SERIALIZED+"/"+message+"/"+SenderName)
         .then(response=>response.json())
         .then(json=>{
           // console.log(json)
+         if(json.status==="OK"){
+           setToastContent("Message Sent")
+           setActive(true)
+         }
+         else{
+          setToastContent("Failed to send message")
+          setActive(true)
+         }
         })
       }
     }
     function setArray(){
       Phone.map(Phone=>
         {
+          console.log()
+          if(Phone.Phone !== undefined || Phone.Phone !== null || Phone.Phone !== ""){
          numbers.push(Phone.Phone)
+          }
         }
         )
-      // console.log(numbers)
+   numbers.pop(undefined)
+   console.log()
 
     }
     
@@ -96,9 +107,9 @@ import {
       var SHOP_URL
       setErr(false)
       setSendErr(false)
-      console.log("AncestorsOrigin "+document.location.ancestorOrigins.item(0))
-      console.log("Host " +document.location.host)
-      console.log("HostName "+ document.location.hostname)
+      console.log()
+      console.log()
+      console.log()
       if(document.location.ancestorOrigins.item(0)===null){
         console.log("Stored Host Name "+ document.location.host)
         setDummyUrl(document.location.host);
@@ -106,17 +117,17 @@ import {
         
        }
        else{
-         console.log((document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://",""))
+         console.log()
          setDummyUrl((document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://",""));
          SHOP_URL = (document.location.ancestorOrigins.item(0)).replace("https://","").replace("http://","")
        }
        //
-       console.log(SHOP_URL)
+       console.log()
        var requestOptions = {
         method: 'GET',
         redirect: 'follow'
       };
-      console.log("")
+      console.log()
       fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
       .then(response => response.json())
       .then(result =>{
@@ -137,9 +148,9 @@ import {
             .then(response=>response.json())
             .then(json=>{
               // console.log(json.details)
-              console.log("")
+              console.log()
               if (json.details !== null || json.details !==undefined){
-                console.log("")
+                console.log()
               setMessage(json.details.marketing_sms)
               }
               else{
@@ -177,7 +188,7 @@ import {
 
       return (
         <AppProvider i18n={enTranslations}>
-        <Page className="PageClass">
+          <div className="warpper">
         <Frame>
         <ResourcePicker
           resourceType="Customer"
@@ -214,8 +225,11 @@ import {
             Array.from(e.dataTransfer.files)
             .filter(file=>file.type==="text/csv" || file.type==="application/vnd.ms-excel")
               .forEach(async (file)=>{
+                
                 const text=await file.text();
+                
                 const result = parse(text, {header:true})
+                console.log()
                 setPhone(existing=>[...existing,...result.data])
                 setArray()
               });
@@ -229,7 +243,7 @@ import {
         <div  className="button"><Button primary onClick={onSendHandler} disabled={loginErr}>Send</Button></div><Button destructive>Cancel</Button>
         {toastMarkup}
         </Frame>
-        </Page>
+        </div>
         </AppProvider>
       );
   }

@@ -169,7 +169,8 @@ function varSMS(e){
 }
       return (
         <AppProvider i18n={enTranslations}>
-        <Page className="PageClass">
+          <div className="warpper">
+        {/* <Page className="PageClass"> */}
         {errorStatus && <InlineError message={error} fieldID="myFieldID" /> }
         {/* Signup Message Start */}
           <Checkbox label="New Customer Signup"     checked={signupChk}  onChange={()=>setSignupChk(!signupChk)}/>
@@ -248,7 +249,8 @@ function varSMS(e){
           <br/>
           <div className="button"><Button primary type="submit" onClick={getName}>Save</Button></div>
           <Button destructive onClick={onClickHandler} >Cancel</Button>
-        </Page>
+        {/* </Page> */}
+        </div>
         </AppProvider>
       );
   }
