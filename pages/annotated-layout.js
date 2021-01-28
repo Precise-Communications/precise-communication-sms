@@ -218,32 +218,31 @@ function varSMS(e){
         {/* Canceled Message Start */}
 
         {/* Abandoned Message Start */}
-          <Checkbox label="SMS for abandoned carts" checked={abandonedChk}  onChange={()=>setAbandonedChk(!abandonedChk)}/> 
+        {/* ****************************************************************************************************** */}
+          {/* <Checkbox label="SMS for abandoned carts" checked={abandonedChk}  onChange={()=>setAbandonedChk(!abandonedChk)}/> 
           <br/>
           <Link onClick={varAbandoned}>[[first_name]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[last_name]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[email]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varAbandoned}>[[shop_domain]]</Link> 
-          <TextField helpText=""  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned} maxLength={140} showCharacterCount/><br/>
+          <TextField helpText=""  onChange={(newValue) => setAbandoned(newValue)}  placeholder="Enter Message" value={abandoned} maxLength={140} showCharacterCount/><br/> */}
+          {/* ****************************************************************************************************** */}
         {/* Abandoned Message Start */}
 
         {/* Refunded Message Start */}
-          <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/>
+        {/* ****************************************************************************************************** */}
+          {/* <Checkbox label="When Order is refunded"  checked={refundChk}  onChange={()=>setRefundChk(!refundChk)}/>
           <br/>
 
           <Link onClick={varRefunded}>[[order_id]]</Link>
-          <TextField helpText=""  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund} maxLength={140} showCharacterCount/><br/> 
+          <TextField helpText=""  onChange={(newValue) => setRefund(newValue)}  placeholder="Enter Message" value={refund} maxLength={140} showCharacterCount/><br/>  */}
+          {/* ****************************************************************************************************** */}
         {/* Refunded Message Start */}
 
         {/* Marketing Message Start */}
           <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/>
           <br/>
-          <Link onClick={varSMS}>[[first_name]]</Link><span> | </span>
-          <Link onClick={varSMS}>[[last_name]]</Link><span> | </span>
-          <Link onClick={varSMS}>[[email]]</Link><span> | </span>
-          <Link onClick={varSMS}>[[shop_name]]</Link><span> | </span>
-          <Link onClick={varSMS}>[[shop_domain]]</Link>
           <TextField helpText=""  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS} maxLength={140} showCharacterCount/>
         {/* Marketing Message Start */}
           <br/>

@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react"
 import {AppProvider,TextField,Button,Subheading,List,InlineError,Banner,Card,Link,FormLayout,Heading,Badge,Stack,EmptyState, Layout, Page} from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+import { Container, Row, Col } from 'react-bootstrap'
 import "./styles.css"
 import axios from 'axios'
 import form_data from 'form-data'
@@ -221,95 +222,101 @@ useEffect(async function CheckUserStatus(){
     return (
       
       <AppProvider i18n={enTranslations}>
-    <div>
-      {showInstallationSteps && 
-    <Card title="Setup Instructions" sectioned>  
-    <Subheading>Account Setup</Subheading>
-    <br/>
-    <List type="bullet">
-    <List.Item>Enter Sender ID and Marketing ID  provide by <Link url="https://www.tobeprecise.com/" external>Precise Communications</Link></List.Item>
-    <List.Item>Enter valid Username and Password.</List.Item>
-    </List>
-    <br/>
-    <Subheading>Customer Template</Subheading>
-    <br/>
-    <List type="bullet">
-    <List.Item>Customize message template using variable</List.Item>
-    <List.Item>Use check box to turn that feature on/off</List.Item>
-    <List.Item>Save Template</List.Item>
-    </List>
-    <br/>
-    <Subheading>SMS Marketing</Subheading>
-    <br/>
-    <List type="bullet">
-    <List.Item>Customize message for users.</List.Item>
-    <List.Item>Save Template.</List.Item>
-    <List.Item>Import customer CSV file. </List.Item>
-    <List.Item>Click Send.</List.Item>
-    </List>
-</Card>
-}
-     <Card title="Available Credits" sectioned>
-  <h3>{credits}</h3>
-    </Card>
-    <br/>
-    <form onSubmit={onSubmitHandler}>
-    <section className="form-class">
-    <div className="SenderID">
-    <TextField 
-      name="sendername"
-      label="Sender ID"
-      value={senderName}
-      placeholder="Enter Sender Name"
-      disabled={false}
-      onChange={(newValue) => setSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
-      disabled={!btn}
-      id="username"
-    /></div>
-       <div className="SenderID">
-    <TextField 
-      name="sendernameMarketing"
-      label="Marketing Sender ID"
-      value={MarketingID}
-      placeholder="Enter Sender Name"
-      disabled={false}
-      onChange={(newValue) => setMarketingSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
-      disabled={!btn}
-      id="Marketing SMS"
-    /></div>
-    <br/>
-    <TextField 
-      name="username"
-      label="User Name"
-      value={username}
-      placeholder="Enter Username"
-      disabled={false}
-      disabled={!btn}
-      onChange={(newValue) => setUsername(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("<",'').replace(">",''))}
-      id="username"
-    />
-    <br/>
-     <TextField
-      name="password"
-      label="Password"
-      value={password}
-      placeholder="Enter Password"
-      id="Password"
-      disabled={!btn}
-      onChange={(newValue) => setPassword(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
-      type="password"
-    /> 
-    <br/>
-<br/>
-{error &&
-  <InlineError message={message} fieldID="myFieldID" /> }
-  <br/>
-  {btn && <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button> }
-   {!btn && <Button destructive type="submit" onClick={LogOutHandler}>Log Out</Button>} 
-    {/* <button type="submit">Submit</button> */}
-    </section>
-    </form>
-    </div>
+       
+              <Card title="Available Credits" sectioned>
+             <h3>{credits}  <Link url="https://www.tobeprecisesms.com/" external>Buy Credits</Link></h3>
+             
+             </Card>
+            <div className="card-1 left">
+              <br/>
+               <form onSubmit={onSubmitHandler}>
+                 <section className="form-class">
+                    <div className="SenderID">
+                      <TextField 
+                        name="sendername"
+                        label="Sender ID"
+                        value={senderName}
+                        placeholder="Enter Sender Name"
+                        disabled={false}
+                        onChange={(newValue) => setSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+                        disabled={!btn}
+                        id="username"
+                      /></div>
+                     <div className="SenderID">
+                    <TextField 
+                      name="sendernameMarketing"
+                      label="Marketing Sender ID"
+                      value={MarketingID}
+                      placeholder="Enter Sender Name"
+                      disabled={false}
+                      onChange={(newValue) => setMarketingSenderName(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+                      disabled={!btn}
+                      id="Marketing SMS"
+                    /></div>
+                    <br/>
+                    <TextField 
+                      name="username"
+                      label="User Name"
+                      value={username}
+                      placeholder="Enter Username"
+                      disabled={false}
+                      disabled={!btn}
+                      onChange={(newValue) => setUsername(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("<",'').replace(">",''))}
+                      id="username"
+                    />
+                    <br/>
+                    <TextField
+                      name="password"
+                      label="Password"
+                      value={password}
+                      placeholder="Enter Password"
+                      id="Password"
+                      disabled={!btn}
+                      onChange={(newValue) => setPassword(newValue.replace(/(^\w+:|^)\/\//, '').replace("*",'').replace("*",'').replace("<",'').replace(">",''))}
+                      type="password"
+                    /> 
+                    <br/>
+                <br/>
+                    {error &&
+                      <InlineError message={message} fieldID="myFieldID" /> }
+                      {btn && <Button primary type="submit" onClick={onSubmitHandler}>Log In</Button> }
+                      {!btn && <Button destructive type="submit" onClick={LogOutHandler}>Log Out</Button>} 
+                        {/* <button type="submit">Submit</button> */}
+                        </section>
+                        </form>
+                      </div>
+        
+           <div className="card-1 right">
+                <Card title="Setup Instructions">  
+                <br/>
+                <div className="Wrapper-Content">
+                <div className="subHeading"><Subheading>Account Setup</Subheading></div>
+                <br/>
+                <List type="bullet">
+                <List.Item>Enter Sender ID and Marketing ID  provide by <Link url="https://www.tobeprecise.com/" external>Precise Communications</Link></List.Item>
+                <List.Item>Enter valid Username and Password.</List.Item>
+                </List>
+                <br/>
+                <div className="subHeading">  <Subheading>Customer Template</Subheading></div>
+                <br/>
+                <List type="bullet">
+                <List.Item>Customize message template using variable</List.Item>
+                <List.Item>Use check box to turn that feature on/off</List.Item>
+                <List.Item>Save Template</List.Item>
+                </List>
+                <br/>
+                <div className="subHeading"> <Subheading>SMS Marketing</Subheading></div>
+                <br/>
+                <List type="bullet">
+                <List.Item>Customize message for users.</List.Item>
+                <List.Item>Save Template.</List.Item>
+                <List.Item>Import customer CSV file. </List.Item>
+                <List.Item>Click Send.</List.Item>
+                </List>
+                </div>
+              </Card>
+              </div>
+       
     {/* <CheckUserStatus/> */}
     </AppProvider>
     

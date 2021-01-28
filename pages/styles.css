@@ -1,6 +1,8 @@
 .form-class{
     padding:1rem;
+    padding-right:0px !important;
     width: 70%;
+    margin:0px !important;
 }
 .PageClass{
     margin-left:0px !important ;
@@ -30,4 +32,37 @@
 .warpper{
     margin-left: 1rem !important;
     padding-left: 1rem !important;
+}
+.Instruction-card{
+    display: inline-block;
+}
+
+.input-fields-card{
+    display: inline-block;
+}
+.list-non-bullet{
+    list-style: none;
+    padding: 0px;
+}
+.list-item-inline{
+    display: inline-block;
+}
+.card-1{
+    width: 40%;
+    display: inline-block !important;
+}
+.left{
+    margin-right: 0% !important;
+    width: 60% !important;
+}
+.right{
+    float: right;
+    width: 40% !important;
+}
+.subHeading{
+    margin-left:30px !important;
+}
+.Wrapper-Content{
+    padding-left: 10px !important;
+    padding-bottom: 25px !important;
 }
