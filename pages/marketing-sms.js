@@ -27,6 +27,7 @@ import {
   import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
   import enTranslations from '@shopify/polaris/locales/en.json';
 
+  var result
   var numbers=[]
   function AnnotatedLayout()  {
 
@@ -80,6 +81,8 @@ import {
           // console.log(json)
          if(json.status==="OK"){
            setToastContent("Message Sent")
+           numbers=[]
+           result=""
            setActive(true)
          }
          else{
@@ -90,7 +93,7 @@ import {
       }
     }
     function setArray(){
-      Phone.map(Phone=>
+      result.data.map(Phone=>
         {
           console.log()
           if(Phone.Phone !== undefined || Phone.Phone !== null || Phone.Phone !== ""){
@@ -217,20 +220,23 @@ import {
           onDragOver={(e)=>{ e.preventDefault();}}
           onDrop={(e)=>{
             e.preventDefault();
-            setPhone([])
+             setPhone([])
             // console.log(e.dataTransfer.files)
             setActive(true)
             numbers=[]
-            setToastContent("File Uploaded")
+           
             Array.from(e.dataTransfer.files)
             .filter(file=>file.type==="text/csv" || file.type==="application/vnd.ms-excel")
               .forEach(async (file)=>{
                 
                 const text=await file.text();
                 
-                const result = parse(text, {header:true})
+                result = parse(text, {header:true})
                 console.log()
-                setPhone(existing=>[...existing,...result.data])
+                setToastContent("File Uploaded")
+                console.log()
+            setPhone(existing=>[...existing,...result.data])
+                console.log()
                 setArray()
               });
           }}

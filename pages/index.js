@@ -181,7 +181,7 @@ useEffect(async function CheckUserStatus(){
     method: 'GET',
     redirect: 'follow'
   };
-  if(document.location.ancestorOrigins.item(0)==="null"){
+  if(document.location.ancestorOrigins.item(0)==="null" || document.location.ancestorOrigins.item(0)===null || document.location.ancestorOrigins.item(0)===undefined) {
    DUMMY_URL= document.location.host;
   }
   else{
