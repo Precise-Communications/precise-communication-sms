@@ -69,13 +69,13 @@ import {
    */
 
   //  This Function Will Post Data In Particular Collection
-  function onsubmitHandler(){
+  function onsubmitHandler(storename){
     if(errorStatus===false){
-    const STORE=store.replace(/(^\w+:|^)\/\//, '')
+    const STORE=storename.replace(/(^\w+:|^)\/\//, '')
     // console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
-      url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/truncate/"+STORE,
+      url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/truncate/"+STORE,
       headers: {}
     };
     axios(config)
@@ -86,7 +86,7 @@ import {
         // console.log(response.data.status)
         var config = {
           method: 'get',
-          url: "https://Precise-Communication-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+          url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
           headers: {}
         };
         axios(config)
@@ -129,8 +129,7 @@ function getName(){
         setErrorStatus(false)
         // console.log(result)
         setStore(result.response.store_name)
-        // console.log(result.response)
-        onsubmitHandler()        
+        onsubmitHandler(result.response.store_name)        
       }
      
     }).catch(error => {
