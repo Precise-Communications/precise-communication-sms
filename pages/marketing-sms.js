@@ -21,7 +21,9 @@ import {
     InlineError,
     Link,
     Icon,
-    Toast
+    Toast,
+    Subheading,
+    List
 
   } from '@shopify/polaris';
   import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
@@ -45,6 +47,7 @@ import {
     const [active, setActive] = useState(false);
     const [DummyUrl,setDummyUrl]=useState()
     const [ToastContent,setToastContent]=useState("")
+    const [fileName,setFilename] =useState("Not Uploaded")
     
     const toggleActive = useCallback(() => setActive((active) => !active), []);
     //End State Configuration
@@ -187,10 +190,18 @@ import {
         
       }
     }
+
+    // @desc Delete CSV file from DROP BOX
+    function deleteHandler(){
+      result=""
+      numbers=[]
+      setFilename("Not Uploaded")
+    }
     // End Of Functions
 
       return (
         <AppProvider i18n={enTranslations}>
+          <div className="card-1 left">
           <div className="warpper">
         <Frame>
         <ResourcePicker
@@ -228,9 +239,8 @@ import {
             Array.from(e.dataTransfer.files)
             .filter(file=>file.type==="text/csv" || file.type==="application/vnd.ms-excel")
               .forEach(async (file)=>{
-                
+                setFilename(file.name)
                 const text=await file.text();
-                
                 result = parse(text, {header:true})
                 console.log()
                 setToastContent("File Uploaded")
@@ -241,15 +251,47 @@ import {
               });
           }}
           >
-          <Icon source={CirclePlusMinor} />Drop File Here
-    </div>         
+          <Icon source={CirclePlusMinor} />Drag and Drop CSV file here
+    </div>  
+    { fileName==="Not Uploaded" && <h2 style={{color:"red"}}>File Name : <strong>{fileName}</strong></h2> }
+    { fileName!=="Not Uploaded" && <h2 style={{color:"Green"}}>File Name : <strong>{fileName}</strong> <Link onClick={deleteHandler} external> DELETE</Link></h2> }
  </div>
  <br/>
  {sendErr && <InlineError message={errMessage} fieldID="myFieldID"/> }
-        <div  className="button"><Button primary onClick={onSendHandler} disabled={loginErr}>Send</Button></div><Button destructive>Cancel</Button>
+        <div  className="button"><Button primary onClick={onSendHandler} disabled={loginErr}>Send SMS</Button></div><Button destructive>Cancel</Button>
         {toastMarkup}
         </Frame>
         </div>
+        </div>
+                <div className="card-1 right">
+                <Card title="CSV FILE IMPORT INSTRUCTIONS">  
+                <br/>
+                <div className="Wrapper-Content">
+               
+                <List type="number">
+                <List.Item>Click on <strong><u>Customers</u></strong> in the left side of <strong><u></u>Shopify Admin</strong> admin panel </List.Item>
+                <List.Item>Select customers whome you want to send SMS using checkbox</List.Item>
+                <List.Item>Click on <strong><u>Export Button</u></strong> on top right corner</List.Item>
+                <List.Item>You will find <strong><u>Export Customers</u></strong> pop-up<br/></List.Item>
+                </List>
+                <List type="number">
+                <br/>
+              <strong><u>Selecting Customers</u></strong>
+              <br/>
+                <br/>
+                    <List.Item>Under <strong><u>Export</u></strong> select appropriate option</List.Item>
+                    <List.Item>Plese Note: if you select <strong><u>All Customers</u></strong>, CSV file will be sent to your registerd E-mail ID</List.Item>
+                  <br/>
+                  <strong><u>Selecting Export Format</u></strong>
+                  <br/>
+                  <br/>
+                  <List.Item>Under <strong><u>Export As</u></strong>. Choose <strong><u>CSV for Excel, Numbers, or other spreadsheet programs</u></strong></List.Item>
+                  <List.Item>Click on <strong><u>Export Customers</u></strong> button on bottom right</List.Item>
+                  <List.Item>Now you can Drag And Drop that file in <strong><u>SMS Marketing </u></strong>Tab of <strong>Precise Communications SMS</strong></List.Item>
+          </List>
+                </div>
+              </Card>
+              </div>
         </AppProvider>
       );
   }
