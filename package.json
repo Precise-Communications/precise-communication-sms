@@ -43,10 +43,6 @@
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
     "reactstrap": "^8.9.0",
-<<<<<<< HEAD
     "webpack": "^4.20.2"
-=======
-    "webpack": "^5.21.2"
->>>>>>> 40afd6c312779a758fde9cd0afd8741b660162f8
   }
 }
