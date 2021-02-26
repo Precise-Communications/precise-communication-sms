@@ -220,12 +220,15 @@ useEffect(async function CheckUserStatus(){
 
       // const [error,setError]=useState("false")
     return (
-      
+    
       <AppProvider i18n={enTranslations}>
        
               <Card title="Available Credits" sectioned>
              <h3>{credits}  <Link url="https://www.tobeprecisesms.com/" external>For Support</Link></h3>
-             
+             <br/>
+                <h3><strong>Email ID : support@tobeprecisesms.com</strong></h3>
+                <br/>
+              <h3><strong>Phone No. : +971 554212756</strong></h3>
              </Card>
             <div className="card-1 left">
               <br/>
@@ -294,8 +297,6 @@ useEffect(async function CheckUserStatus(){
                 <br/>
                 <List type="bullet">
                 <List.Item>Enter Sender ID and Marketing ID  provide by <Link url="https://www.tobeprecise.com/" external>Precise Communications</Link></List.Item>
-                <List.Item>Email ID : support@tobeprecisesms.com </List.Item>
-                <List.Item>Phone No. : +971 554212756 </List.Item>
                 <List.Item>Enter valid Username and Password.</List.Item>
                 </List>
                 <br/>
