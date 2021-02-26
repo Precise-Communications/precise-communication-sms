@@ -9,6 +9,7 @@ const session = require('koa-session');
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
+const { default: Shopify } = require('@shopify/shopify-api');
 const { receiveWebhook, registerWebhook } = require('@shopify/koa-shopify-webhooks');
 const getSubscriptionUrl = require('./server/getSubscriptionUrl');
 
@@ -174,8 +175,13 @@ app.prepare().then(() => {
           // await getSubscriptionUrl(ctx, accessToken, shop);
           const urlParams = new URLSearchParams(ctx.request.url);
           const shopNew = urlParams.get('shop');
-  
-          ctx.redirect(`/?shop=${shopNew}`);
+          
+          // ctx.redirect(`/?shop=${shopNew}`);
+
+          // @desc Enabling Subscription
+          // const returnUrl = `/?shop=${shopNew}`;
+          await getSubscriptionUrl(ctx, accessToken, shop);
+          // ctx.redirect(subscriptionUrl);
       }
       
     })

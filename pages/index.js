@@ -224,7 +224,7 @@ useEffect(async function CheckUserStatus(){
       <AppProvider i18n={enTranslations}>
        
               <Card title="Available Credits" sectioned>
-             <h3>{credits}  <Link url="https://www.tobeprecisesms.com/" external>Buy Credits</Link></h3>
+             <h3>{credits}  <Link url="https://www.tobeprecisesms.com/" external>For Support</Link></h3>
              
              </Card>
             <div className="card-1 left">
