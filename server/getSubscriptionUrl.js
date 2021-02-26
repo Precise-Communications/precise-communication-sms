@@ -4,6 +4,7 @@ const getSubscriptionUrl = async (ctx, accessToken, shop) => {
       appSubscriptionCreate(
           name: "Basic Plan"
           returnUrl: "${process.env.HOST}"
+          test : true
           lineItems: [
           {
             plan: {

@@ -294,6 +294,8 @@ useEffect(async function CheckUserStatus(){
                 <br/>
                 <List type="bullet">
                 <List.Item>Enter Sender ID and Marketing ID  provide by <Link url="https://www.tobeprecise.com/" external>Precise Communications</Link></List.Item>
+                <List.Item>Email ID : support@tobeprecisesms.com </List.Item>
+                <List.Item>Phone No. : +971 554212756 </List.Item>
                 <List.Item>Enter valid Username and Password.</List.Item>
                 </List>
                 <br/>
