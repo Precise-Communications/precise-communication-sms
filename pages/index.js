@@ -300,22 +300,22 @@ useEffect(async function CheckUserStatus(){
                 <List.Item>Enter valid Username and Password.</List.Item>
                 </List>
                 <br/>
-                <div className="subHeading">  <Subheading>Customer Template</Subheading></div>
+                <div className="subHeading">  <Subheading>SMS Templates</Subheading></div>
                 <br/>
                 <List type="bullet">
-                <List.Item>Customize message template using variable</List.Item>
-                <List.Item>Use check box to turn that feature on/off</List.Item>
+                <List.Item>Customize SMS template using variable</List.Item>
+                <List.Item>Use check box to turn SMS template on/off</List.Item>
                 <List.Item>Save Template</List.Item>
                 </List>
                 <br/>
-                <div className="subHeading"> <Subheading>SMS Marketing</Subheading></div>
+                {/* <div className="subHeading"> <Subheading>SMS Marketing</Subheading></div>
                 <br/>
                 <List type="bullet">
                 <List.Item>Customize message for users.</List.Item>
                 <List.Item>Save Template.</List.Item>
                 <List.Item>Import customer CSV file. </List.Item>
                 <List.Item>Click Send.</List.Item>
-                </List>
+                </List> */}
                 </div>
               </Card>
               </div>
