@@ -240,9 +240,9 @@ function varSMS(e){
         {/* Refunded Message Start */}
 
         {/* Marketing Message Start */}
-          <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/>
+          {/* <Checkbox label="Marketing SMS"           checked={SMSChk}  onChange={()=>setSMSChk(!SMSChk)}/>
           <br/>
-          <TextField helpText=""  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS} maxLength={140} showCharacterCount/>
+          <TextField helpText=""  onChange={(newValue) => setSMS(newValue)}  placeholder="Enter Message" value={SMS} maxLength={140} showCharacterCount/> */}
         {/* Marketing Message Start */}
           <br/>
           <div className="button"><Button primary type="submit" onClick={getName}>Save</Button></div>
