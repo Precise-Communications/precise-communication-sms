@@ -228,7 +228,6 @@ useEffect(async function CheckUserStatus(){
              <br/>
                 <h3><strong>Email ID : support@tobeprecisesms.com</strong></h3>
                 <br/>
-              <h3><strong>Phone No. : +971 554212756</strong></h3>
              </Card>
             <div className="card-1 left">
               <br/>
@@ -245,7 +244,7 @@ useEffect(async function CheckUserStatus(){
                         disabled={!btn}
                         id="username"
                       /></div>
-                     <div className="SenderID">
+                    <div className="SenderID">
                     <TextField 
                       name="sendernameMarketing"
                       label="Marketing Sender ID"
