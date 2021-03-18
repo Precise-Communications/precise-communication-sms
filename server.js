@@ -200,23 +200,6 @@ app.prepare().then(() => {
   
   //  ---> Order Placement 
   // Order Placed
-  /**
-   * 
-   * account_creation:"hello guys"
-     account_status:"true"
-     order_creation:"NULL"
-     order_status:"true"
-     order_refund:"NULL"
-     refund_status:"true"
-     order_cancel:"NULL"
-     cancel_status:"true"
-     abandoned_cart:"NULL"
-     abandoned_status:"true"
-     marketing_sms:"NULL"
-     marketing_status:"true"
-     order_fulfillment:"NULL"
-     fulfillment_status:"true"
-   */
   router.post('/webhooks/orders/create', webhook, (ctx) => {
     console.log("------------------Create Order----------------------")
     // console.log('received webhook: ', ctx.state.webhook.payload);
@@ -267,7 +250,7 @@ app.prepare().then(() => {
    router.post('/webhooks/refunds/create', webhook, (ctx) => {
     console.log("-------------------Refunds Create---------------------")
     console.log('received webhook: ', ctx.state.webhook);
-    GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic,ctx.state.webhook)
+    // GetMessage(ctx.state.webhook.domain,"order_refund","refund_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------Refunds Create---------------------")
   });
@@ -301,7 +284,7 @@ app.prepare().then(() => {
    router.post('/webhooks/app/uninstalled', webhook, (ctx) => {
     console.log("-------------------App Uninstalled---------------------")
     console.log('received webhook: ', ctx.state.webhook.payload);
-    GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
+    // GetMessage(ctx.state.webhook.domain,"order_cancel","cancel_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("-------------------App Uninstalled---------------------")
   });
@@ -331,6 +314,7 @@ app.prepare().then(() => {
 
   /*__________________________________________________________________________________*/
   // These Functions Will Respond 200OK To Shopify Server Within 5 Secs
+  
   server.use(graphQLProxy({ version: ApiVersion.July20 }));       //GraphQL Admin API
 
   router.get('(.*)', verifyRequest(), async (ctx) => {    // Sending Response 
