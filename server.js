@@ -200,11 +200,11 @@ app.prepare().then(() => {
   
   //  ---> Order Placement 
   // Order Placed
-  router.post('/webhooks/orders/create', webhook, (ctx) => {
+  router.post('/webhooks/orders/create', webhook, async (ctx) => {
     console.log("------------------Create Order----------------------")
     // console.log('received webhook: ', ctx.state.webhook.payload);
     console.log('received webhook: ', ctx.state.webhook);
-    GetMessage(ctx.state.webhook.domain,"order_creation","order_status",ctx.state.webhook.topic,ctx.state.webhook)
+    const msg = await GetMessage(ctx.state.webhook.domain,"order_creation","order_status",ctx.state.webhook.topic,ctx.state.webhook)
     // Do Something ...
     console.log("------------------Create Order----------------------")
   });
@@ -334,6 +334,7 @@ app.prepare().then(() => {
 
 // For Recieving Messages
 function GetMessage(url,hookCalled,hookStatus,topic,webhook){
+  console.log("CALLED")
   var USERNAME
   var PASSWORD
   var SENDER_ID
@@ -346,6 +347,7 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
   fetch(URL, requestOptions)
     .then(response => response.json())
     .then(result => {
+      console.log(result)
       console.log(url)
       fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+url,requestOptions)
       .then(response=>response.json())
@@ -371,6 +373,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
   console.log(status)
   switch(topic){
   case "ORDERS_CREATE":
+    console.log("ORDERS_CREATE")
     const first_name=webhook.payload.billing_address.first_name
     const last_name=webhook.payload.billing_address.last_name
     const email=webhook.payload.email
