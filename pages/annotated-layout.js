@@ -75,7 +75,7 @@ import {
     // console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
-      url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/truncate/"+STORE,
+      url: "https://Precise-Comm-SMS.precise.repl.co/api/truncate/"+STORE,
       headers: {}
     };
     axios(config)
@@ -86,7 +86,7 @@ import {
         // console.log(response.data.status)
         var config = {
           method: 'get',
-          url: "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+          url: "https://Precise-Comm-SMS.precise.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
           headers: {}
         };
         axios(config)
@@ -115,7 +115,7 @@ function getName(){
   };
   const DUMMY_URL=window.location.ancestorOrigins.item(0);
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-  fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
+  fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
       if(result.status==="500" || result.response.status==="logged_out"){
@@ -191,7 +191,7 @@ function varSMS(e){
           <Link onClick={varPlaced}>[[shop_name]]</Link><span> | </span>
           <Link onClick={varPlaced}>[[shop_domain]]</Link>
           <TextField helpText="" onChange={(newValue) => setPlaced(newValue)}  placeholder="Enter Message" value={placed} maxLength={140} showCharacterCount/><br/> 
-        {/* Placed Message Start */}
+        {/* Placed Message Starhttps://www.canva.com/design/DAEbc3SPbcE/0KPNlOdTJ8CqXnJdRfUmHQ/edit?layoutQuery=makeup+workshopt */}
 
         {/* Fulfilled Message Start */}
           <Checkbox label="When Order Is Fulfilled" checked={fulfilledChk}  onChange={()=>setFulfilledChk(!fulfilledChk)}/>

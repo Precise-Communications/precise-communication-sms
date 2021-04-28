@@ -351,7 +351,7 @@
 //   var USERNAME
 //   var PASSWORD
 //   var SENDER_ID
-//   const URL="https://precise-comm-sms.ishanjirety.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
+//   const URL="https://Precise-Comm-SMS.precise.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
 //   var requestOptions = {
 //     method: 'GET',
 //     redirect: 'follow'
@@ -361,7 +361,7 @@
 //     .then(response => response.json())
 //     .then(result => {
 //       console.log(url)
-//       fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+url,requestOptions)
+//       fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+url,requestOptions)
 //       .then(response=>response.json())
 //       .then(json=>{
 //         USERNAME=json.response.username
@@ -408,7 +408,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -436,7 +436,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -464,7 +464,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -492,7 +492,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -517,7 +517,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -545,7 +545,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -573,7 +573,7 @@
 //         };
         
 //         console.log(MESSAGE)
-//         fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//         fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //           .then(response => response.text())
 //           .then(result => console.log(result))
 //           .catch(error => console.log('error', error));
@@ -602,7 +602,7 @@
 //        };
        
 //        console.log(MESSAGE)
-//        fetch("https://Precise-Comm-SMS.ishanjirety.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+//        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
 //          .then(response => response.text())
 //          .then(result => console.log(result))
 //          .catch(error => console.log('error', error));
@@ -620,10 +620,12 @@
 import "@babel/polyfill";
 import dotenv from "dotenv";
 import "isomorphic-fetch";
-import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
+
 import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
+
+import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
 import Router from "koa-router";
 
 dotenv.config();
@@ -632,6 +634,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
 });
+
 const handle = app.getRequestHandler();
 
 Shopify.Context.initialize({

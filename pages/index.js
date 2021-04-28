@@ -45,7 +45,7 @@ function Index(){
     if (EnrtyStatus==="logged_out" ||  EnrtyStatus==="logged_in"){
       // console.log(EnrtyStatus)
       const STATUS = "logged_in";
-      const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/update/"+username+"/"+STATUS
+      const URL= "https://Precise-Comm-SMS.precise.repl.co/api/update/"+username+"/"+STATUS
       var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -75,7 +75,7 @@ function Index(){
     const SENDER_NAME=senderName
     const MARK_SMS=MarketingID
     // console.log(SENDER_NAME)
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+MarketingID+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
+    const URL= "https://Precise-Comm-SMS.precise.repl.co/api/insert/"+USERNAME+"/"+PASSWORD+"/"+senderName+"/"+MarketingID+"/"+SHOP_NAME+"/"+JSON.stringify(SHOP_URL)+"/"+STATUS
 
     var requestOptions = {
       method: 'GET',
@@ -98,7 +98,7 @@ function Index(){
       redirect: 'follow'
     };
     // console.log(shopname)
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/create/"+shopname;
+    const URL= "https://Precise-Comm-SMS.precise.repl.co/api/create/"+shopname;
     fetch(URL, requestOptions)
       .then(response => response.text())
       // .then(result => console.log(result))
@@ -112,7 +112,7 @@ function Index(){
      setMessage("Please enter credentials")
     }
     else{
-   fetch("https://precise-comm-sms.ishanjirety.repl.co/api/credits/"+username+"/"+password)
+   fetch("https://Precise-Comm-SMS.precise.repl.co/api/credits/"+username+"/"+password)
             .then(response=>response.json())
             .then(json=>{
                         if(json.status==="OK"){
@@ -149,7 +149,7 @@ function Index(){
   // Logging Out User
   function LogOutHandler(){
     const STATUS = "logged_out";
-    const URL= "https://Precise-Comm-SMS.ishanjirety.repl.co/api/update/"+username+"/"+STATUS
+    const URL= "https://Precise-Comm-SMS.precise.repl.co/api/update/"+username+"/"+STATUS
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -190,7 +190,7 @@ useEffect(async function CheckUserStatus(){
   //
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
   // console.log(SHOP_URL)
-  fetch("https://precise-comm-sms.ishanjirety.repl.co/api/select/"+SHOP_URL, requestOptions)
+  fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
         // console.log(result)
