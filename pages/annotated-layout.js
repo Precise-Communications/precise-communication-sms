@@ -75,7 +75,7 @@ import {
     // console.log(STORE,signup,signupChk,placed,placedChk,fulfilled,fulfilledChk,canceled,canceledChk,abandoned,abandonedChk,refund,refundChk,SMS,SMSChk)
     var config = {
       method: 'get',
-      url: "https://Precise-Comm-SMS.precise.repl.co/api/truncate/"+STORE,
+      url: "https://precise-communications-api.herokuapp.com/api/truncate/"+STORE,
       headers: {}
     };
     axios(config)
@@ -86,7 +86,7 @@ import {
         // console.log(response.data.status)
         var config = {
           method: 'get',
-          url: "https://Precise-Comm-SMS.precise.repl.co/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
+          url: "https://precise-communications-api.herokuapp.com/api/insertuser/"+STORE+"/"+signup+"/"+signupChk+"/"+placed+"/"+placedChk+"/"+fulfilled+"/"+fulfilledChk+"/"+canceled+"/"+canceledChk+"/"+abandoned+"/"+abandonedChk+"/"+refund+"/"+refundChk+"/"+SMS+"/"+SMSChk,
           headers: {}
         };
         axios(config)
@@ -115,7 +115,7 @@ function getName(){
   };
   const DUMMY_URL=window.location.ancestorOrigins.item(0);
   var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-  fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+SHOP_URL, requestOptions)
+  fetch("https://precise-communications-api.herokuapp.com/api/select/"+SHOP_URL, requestOptions)
     .then(response => response.json())
     .then(result =>{
       if(result.status==="500" || result.response.status==="logged_out"){

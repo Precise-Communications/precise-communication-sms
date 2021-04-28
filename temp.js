@@ -78,7 +78,7 @@ import {
         // console.log(numbers)
         const FORMATTED_ARRAY=JSON.stringify(numbers)
         const SERIALIZED=encodeURIComponent(FORMATTED_ARRAY)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/bulkmessage/"+SERIALIZED+"/"+message+"/"+SenderName)
+        fetch("https://precise-communications-api.herokuapp.com/api/bulkmessage/"+SERIALIZED+"/"+message+"/"+SenderName)
         .then(response=>response.json())
         .then(json=>{
           // console.log(json)
@@ -134,7 +134,7 @@ import {
         redirect: 'follow'
       };
       console.log()
-      fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+SHOP_URL, requestOptions)
+      fetch("https://precise-communications-api.herokuapp.com/api/select/"+SHOP_URL, requestOptions)
       .then(response => response.json())
       .then(result =>{
           // console.log(result)
@@ -150,7 +150,7 @@ import {
             SHOP_URL=SHOP_URL.replace(".myshopify.com","")
             console.log()
             setSenderName(result.response.marktingID)
-            fetch("https://Precise-Comm-SMS.precise.repl.co/api/select_marketing/"+SHOP_URL,requestOptions)
+            fetch("https://precise-communications-api.herokuapp.com/api/select_marketing/"+SHOP_URL,requestOptions)
             .then(response=>response.json())
             .then(json=>{
               // console.log(json.details)
@@ -174,7 +174,7 @@ import {
       if(message!==""){
         var config = {
           method: 'get',
-          url: 'https://Precise-Comm-SMS.precise.repl.co/api/marketingsms/'+SHOP_URL+'/'+message,
+          url: 'https://precise-communications-api.herokuapp.com/api/marketingsms/'+SHOP_URL+'/'+message,
           headers: {}
         };
         

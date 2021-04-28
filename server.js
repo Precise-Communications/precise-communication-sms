@@ -338,7 +338,7 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
   var USERNAME
   var PASSWORD
   var SENDER_ID
-  const URL="https://Precise-Comm-SMS.precise.repl.co/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
+  const URL="https://precise-communications-api.herokuapp.com/api/select_message/"+url+"/"+hookCalled+"/"+hookStatus
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -349,7 +349,7 @@ function GetMessage(url,hookCalled,hookStatus,topic,webhook){
     .then(result => {
       console.log(result)
       console.log(url)
-      fetch("https://Precise-Comm-SMS.precise.repl.co/api/select/"+url,requestOptions)
+      fetch("https://precise-communications-api.herokuapp.com/api/select/"+url,requestOptions)
       .then(response=>response.json())
       .then(json=>{
         USERNAME=json.response.username
@@ -397,7 +397,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -425,7 +425,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -453,7 +453,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -481,7 +481,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -506,7 +506,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -534,7 +534,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -562,7 +562,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
         };
         
         console.log(MESSAGE)
-        fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+        fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -591,7 +591,7 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
        };
        
        console.log(MESSAGE)
-       fetch("https://Precise-Comm-SMS.precise.repl.co/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
+       fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
          .then(response => response.text())
          .then(result => console.log(result))
          .catch(error => console.log('error', error));
