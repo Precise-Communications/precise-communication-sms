@@ -45,7 +45,7 @@ function Index(){
     if (EnrtyStatus==="logged_out" ||  EnrtyStatus==="logged_in"){
       // console.log(EnrtyStatus)
       const STATUS = "logged_in";
-      const URL= "https://precise-communications-api.herokuapp.com/api/update/"+username+"/"+STATUS
+      const URL= "https://precise-communications-api.herokuapp.com/api/update/"+username+"/"+STATUS+"?senderName="+senderName+"&marketingid="+MarketingID
       var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -149,7 +149,7 @@ function Index(){
   // Logging Out User
   function LogOutHandler(){
     const STATUS = "logged_out";
-    const URL= "https://precise-communications-api.herokuapp.com/api/update/"+username+"/"+STATUS
+    const URL= "https://precise-communications-api.herokuapp.com/api/update/"+username+"/"+STATUS+"?senderName="+senderName+"&marketingid="+MarketingID
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
