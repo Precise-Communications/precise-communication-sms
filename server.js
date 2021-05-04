@@ -390,13 +390,11 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
    PHONE_NUMBER=webhook.payload.customer.phone
     if(PHONE_NUMBER !== null){
     if(status==="true"){
-          console.log(MESSAGE)
           var requestOptions = {
           method: 'GET',
           redirect: 'follow'
         };
         
-        console.log(MESSAGE)
         fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
@@ -446,18 +444,15 @@ function replaceMessage_send(topic,message,webhook,status,USERNAME,PASSWORD,SEND
    PHONE_NUMBER=webhook.payload.customer.phone
     if(PHONE_NUMBER !== null){
     if(status==="true"){
-          console.log(MESSAGE)
           var requestOptions = {
           method: 'GET',
           redirect: 'follow'
         };
         
-        console.log(MESSAGE)
         fetch("https://precise-communications-api.herokuapp.com/api/sendSMS/"+USERNAME+"/"+PASSWORD+"/"+SENDER_ID+"/"+MESSAGE+"/"+PHONE_NUMBER, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
-        console.log(MESSAGE)
     }
     else{
       console.log("Message Status", status)
