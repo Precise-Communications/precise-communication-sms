@@ -178,7 +178,7 @@ function varSMS(e){
         }
         //
         var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
-        const {data:{message}} = await axios.get("https://precise-communications-api.herokuapp.com//api/get-messages/"+SHOP_URL)
+        const {data:{message}} = await axios.get("https://precise-communications-api.herokuapp.com/api/get-messages/"+SHOP_URL)
         if(message){
             setSignup(message.account_creation)
             setSignupChk(message.account_status === "true" ? true : false)
