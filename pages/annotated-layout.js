@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import "./styles.css"
 import axios from 'axios'
 import form_data from 'form-data'
@@ -166,6 +166,35 @@ function varSMS(e){
   const VarValue=e.target.innerText
   setSMS(SMS+VarValue)
 }
+      
+      useEffect(() => {
+      (async function getTemplates(){
+        let DUMMY_URL =""
+        if(document.location.ancestorOrigins.item(0)==="null" || document.location.ancestorOrigins.item(0)===null || document.location.ancestorOrigins.item(0)===undefined) {
+          DUMMY_URL= document.location.host;
+        }
+        else{
+          DUMMY_URL= document.location.ancestorOrigins.item(0);
+        }
+        //
+        var SHOP_URL = DUMMY_URL.replace(/(^\w+:|^)\/\//, '');
+        const {data:{message}} = await axios.get("https://Precise-Comm-SMS.precise.repl.co/api/get-messages/"+SHOP_URL)
+        if(message){
+            setSignup(message.account_creation)
+            setSignupChk(message.account_status === "true" ? true : false)
+
+            setPlaced(message.order_creation)
+            setPlacedChk(message.order_status === "true" ? true : false)
+
+            setFulfilled(message.order_fulfillment)
+            setFulfilledChk(message.fulfillment_status)
+
+            setCanceled(message.order_cancel)
+            setCanceledChk(message.cancel_status === "true" ? true : false)
+            
+        }
+      })()
+    }, [])
       return (
         <AppProvider i18n={enTranslations}>
           <div className="warpper">
