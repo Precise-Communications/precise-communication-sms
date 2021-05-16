@@ -187,7 +187,7 @@ function varSMS(e){
             setPlacedChk(message.order_status === "true" ? true : false)
 
             setFulfilled(message.order_fulfillment)
-            setFulfilledChk(message.fulfillment_status)
+            setFulfilledChk(message.fulfillment_status === "true" ? true : false)
 
             setCanceled(message.order_cancel)
             setCanceledChk(message.cancel_status === "true" ? true : false)
